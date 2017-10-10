@@ -1,7 +1,10 @@
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 
 public class Sudoku_Class {
 	//Main board
-	public static int[][] board = new int[9][9];
+	private int[][] board = new int[9][9];
 
 	//Creates a new board
 	public Sudoku_Class(){
@@ -14,7 +17,7 @@ public class Sudoku_Class {
 	}
 	
 	//Returns the board in its array form
-	public int[][] board(){
+	public int[][] get_board(){
 		return board;
 	}
 	
@@ -44,5 +47,33 @@ public class Sudoku_Class {
 			}			
 		}
 		return string_board;
+	}
+
+    // Methods by Hoang
+	int[][] validAllRowsAndCols() {
+		List<HashSet<Integer>> numInRow = new ArrayList<HashSet<Integer>>();
+		List<HashSet<Integer>> numInCol = new ArrayList<HashSet<Integer>>();
+		for (int i = 0; i < 9; i++) {
+			numInCol.add(new HashSet<Integer>());
+			numInRow.add(new HashSet<Integer>());
+		}
+		int[][] ans = new int[9][9];
+		for (int i = 0; i < 9; i++) {
+			for (int j = 0; j < 9; j++) {
+                ans[i][j] = 0;
+			    int val = board[i][j];
+				if (val > 0) {
+					if (numInRow.get(i).contains(val)) {
+						ans[i][j] = 1;
+					}
+					if (numInCol.get(j).contains(val)) {
+						ans[i][j] = 1;
+					}
+					numInRow.get(i).add(val);
+					numInCol.get(j).add(val);
+				}
+			}
+		}
+		return ans;
 	}
 }
