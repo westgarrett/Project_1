@@ -31,6 +31,7 @@ public class Sudoku_Class {
 					for (int k = 0; k < 3; k++) {
 						//For every column in the 3x3 area that the specified space is in
 						for (int l = 0; l < 3; l++) {
+							//If value is the same then it marks the spot in the return array
 							if (value != 0 && value == board[k][l] && (i != k || j != l)) {
 								return_array[i][j] = 1;
 							}
