@@ -2,7 +2,7 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertArrayEquals;
 
 
 public class Tests {
@@ -60,12 +60,13 @@ public class Tests {
 	@Test
 	public void testValidAllRowsAndCols0() {
 		int[][] testBoard = new int[9][9];
+        int[][] expected = new int[9][9];
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
 				testBoard[i][j] = (i + j) % 9 + 1;
 			}
 		}
 		Sudoku_Class game = new Sudoku_Class(testBoard);
-		assertEquals(game.validAllRowsAndCols(), true);
+		assertArrayEquals(game.validAllRowsAndCols(), expected);
 	}
 }

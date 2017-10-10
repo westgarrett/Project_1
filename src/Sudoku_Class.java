@@ -50,28 +50,30 @@ public class Sudoku_Class {
 	}
 
     // Methods by Hoang
-	boolean validAllRowsAndCols() {
+	int[][] validAllRowsAndCols() {
 		List<HashSet<Integer>> numInRow = new ArrayList<HashSet<Integer>>();
 		List<HashSet<Integer>> numInCol = new ArrayList<HashSet<Integer>>();
 		for (int i = 0; i < 9; i++) {
 			numInCol.add(new HashSet<Integer>());
 			numInRow.add(new HashSet<Integer>());
 		}
+		int[][] ans = new int[9][9];
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
-				int val = board[i][j];
+                ans[i][j] = 0;
+			    int val = board[i][j];
 				if (val > 0) {
 					if (numInRow.get(i).contains(val)) {
-						return false;
+						ans[i][j] = 1;
 					}
 					if (numInCol.get(j).contains(val)) {
-						return false;
+						ans[i][j] = 1;
 					}
 					numInRow.get(i).add(val);
 					numInCol.get(j).add(val);
 				}
 			}
 		}
-		return true;
+		return ans;
 	}
 }
