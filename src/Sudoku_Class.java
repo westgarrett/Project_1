@@ -16,6 +16,109 @@ public class Sudoku_Class {
 		board = input;
 	}
 	
+	public int[][] validate_3x3_area() {
+		int[][] return_array = { { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 } };
+		//For every row
+		for (int i = 0; i < board.length; i++) {
+			//For every column
+			for (int j = 0; j < board[i].length; j++) {
+				//Gets the value at the specified space
+				int value = board[i][j];
+				//If specified space is between column 0 and 2 and row 0 and 2
+				if (0 <= j && j <= 2 && 0 <= i && i <= 2) {
+					//For every row in the 3x3 area that the specified space is in
+					for (int k = 0; k < 3; k++) {
+						//For every column in the 3x3 area that the specified space is in
+						for (int l = 0; l < 3; l++) {
+							//If value is the same then it marks the spot in the return array
+							if (value != 0 && value == board[k][l] && (i != k || j != l)) {
+								return_array[i][j] = 1;
+							}
+						}
+					}
+				//If specified space is between column 3 and 5 and row 0 and 2
+				} else if (3 <= j && j <= 5 && 0 <= i && i <= 2) {
+					for (int k = 0; k < 3; k++) {
+						for (int l = 3; l < 5; l++) {
+							if (value != 0 && value == board[k][l] && i != k && j != l) {
+								return_array[i][j] = 1;
+							}
+						}
+					}
+				//If specified space is between column 6 and 8 and row 0 and 2
+				} else if (6 <= j && j <= 8 && 0 <= i && i <= 2) {
+					for (int k = 0; k < 3; k++) {
+						for (int l = 6; l < 8; l++) {
+							if (value != 0 && value == board[k][l] && i != k && j != l) {
+								return_array[i][j] = 1;
+							}
+						}
+					}
+				//If specified space is between column 0 and 2 and row 3 and 5
+				} else if (0 <= j && j <= 2 && 3 <= i && i <= 5) {
+					for (int k = 3; k < 5; k++) {
+						for (int l = 0; l < 2; l++) {
+							if (value != 0 && value == board[k][l] && i != k && j != l) {
+								return_array[i][j] = 1;
+							}
+						}
+					}
+				//If specified space is between column 3 and 5 and row 3 and 5
+				} else if (3 <= j && j <= 5 && 3 <= i && i <= 5) {
+					for (int k = 3; k < 5; k++) {
+						for (int l = 3; l < 5; l++) {
+							if (value != 0 && value == board[k][l] && i != k && j != l) {
+								return_array[i][j] = 1;
+							}
+						}
+					}
+				//If specified space is between column 6 and 8 and row 3 and 5
+				} else if (6 <= j && j <= 8 && 3 <= i && i <= 5) {
+					for (int k = 3; k < 5; k++) {
+						for (int l = 6; l < 8; l++) {
+							if (value != 0 && value == board[k][l] && i != k && j != l) {
+								return_array[i][j] = 1;
+							}
+						}
+					}
+				//If specified space is between column 0 and 2 and row 6 and 8
+				} else if (0 <= j && j <= 2 && 6 <= i && i <= 8) {
+					for (int k = 6; k < 8; k++) {
+						for (int l = 0; l < 2; l++) {
+							if (value != 0 && value == board[k][l] && i != k && j != l) {
+								return_array[i][j] = 1;
+							}
+						}
+					}
+				//If specified space is between column 3 and 5 and row 6 and 8
+				} else if (3 <= j && j <= 5 && 6 <= i && i <= 8) {
+					for (int k = 6; k < 8; k++) {
+						for (int l = 3; l < 5; l++) {
+							if (value != 0 && value == board[k][l] && i != k && j != l) {
+								return_array[i][j] = 1;
+							}
+						}
+					}
+				//If specified space is between column 6 and 8 and row 6 and 8
+				} else if (6 <= j && j <= 8 && 6 <= i && i <= 8) {
+					for (int k = 6; k < 8; k++) {
+						for (int l = 6; l < 8; l++) {
+							if (value != 0 && value == board[k][l] && i != k && j != l) {
+								return_array[i][j] = 1;
+							}
+						}
+					}
+				}
+			}
+		}
+		return return_array;
+	}
+
+	
 	//Returns the board in its array form
 	public int[][] get_board(){
 		return board;
