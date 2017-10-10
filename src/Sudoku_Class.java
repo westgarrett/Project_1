@@ -1,15 +1,15 @@
 
-public class sudoku_class {
+public class Sudoku_Class {
 	//Main board
 	public static int[][] board = new int[9][9];
 
 	//Creates a new board
-	public sudoku_class(){
+	public Sudoku_Class(){
 		board = new int[9][9];
 	}
 	
 	//Creates a board based on an input
-	public sudoku_class(int[][] input){
+	public Sudoku_Class(int[][] input){
 		board = input;
 	}
 	

@@ -1,7 +1,7 @@
 
-public class sudoku_main {
+public class Sudoku_Main {
 	public static void main(String[] args) {
-		sudoku_class game = new sudoku_class();
+		Sudoku_Class game = new Sudoku_Class();
 		game.print_board();
 
 	}
