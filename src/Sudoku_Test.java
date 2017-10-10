@@ -1,6 +1,5 @@
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
+import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 public class Sudoku_Test {
 	@Test
@@ -12,7 +11,7 @@ public class Sudoku_Test {
 	}
 
     @Test
-    public void test_valid_all_rows_and_cols0() {
+    public void testValidAllRowsAndCols0() {
         int[][] testBoard = new int[9][9];
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
