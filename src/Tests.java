@@ -5,7 +5,6 @@ import java.util.Arrays;
 //import static org.junit.Assert.assertArrayEquals;
 
 public class Tests {
-	private static Square_Entry[][] input;
 
 	public static void main(String[] args) {
 		create_sudoku_class_no_input_tests();
@@ -35,7 +34,7 @@ public class Tests {
 				{ 8, 5, 9, 7, 6, 1, 4, 2, 3 }, { 4, 2, 6, 8, 5, 3, 4, 9, 1 },
 				{ 7, 1, 3, 9, 2, 4, 8, 5, 6 }, { 9, 6, 1, 5, 3, 7, 2, 8, 4 },
 				{ 2, 8, 7, 4, 1, 9, 6, 3, 5 }, { 3, 4, 5, 2, 8, 6, 1, 7, 9 } };
-		input = new Square_Entry[9][9];
+		Square_Entry[][] input = new Square_Entry[9][9];
 		for (int i = 0; i < input_values.length; i++) {
 			for (int j = 0; j < input_values[i].length; j++) {
 				input[i][j] = new Square_Entry(input_values[i][j], false);
