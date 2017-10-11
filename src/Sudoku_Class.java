@@ -4,15 +4,20 @@ import java.util.List;
 
 public class Sudoku_Class {
 	//Main board
-	private int[][] board = new int[9][9];
+	private Square_Entry[][] board = new Square_Entry[9][9];
 
 	//Creates a new board
 	public Sudoku_Class(){
-		board = new int[9][9];
+		board = new Square_Entry[9][9];
 	}
 	
 	//Creates a board based on an input
-	public Sudoku_Class(int[][] input){
+	public Sudoku_Class(Square_Entry[][] input){
+		for(int i = 0; i < input.length;i++){
+			for(int j =0; j<input[i].length;j++){
+				System.out.print(input[i][j].value());
+			}
+		}
 		board = input;
 	}
 	
@@ -27,7 +32,7 @@ public class Sudoku_Class {
 			//For every column
 			for (int j = 0; j < board[i].length; j++) {
 				//Gets the value at the specified space
-				int value = board[i][j];
+				int value = board[i][j].value();
 				//If specified space is between column 0 and 2 and row 0 and 2
 				if (0 <= j && j <= 2 && 0 <= i && i <= 2) {
 					//For every row in the 3x3 area that the specified space is in
@@ -35,7 +40,8 @@ public class Sudoku_Class {
 						//For every column in the 3x3 area that the specified space is in
 						for (int l = 0; l < 3; l++) {
 							//If value is the same then it marks the spot in the return array
-							if (value != 0 && value == board[k][l] && (i != k || j != l)) {
+							int a = board[k][l].value();
+							if (value != 0 && value == board[k][l].value() && (i != k || j != l)) {
 								return_array[i][j] = 1;
 							}
 						}
@@ -44,7 +50,7 @@ public class Sudoku_Class {
 				} else if (3 <= j && j <= 5 && 0 <= i && i <= 2) {
 					for (int k = 0; k < 3; k++) {
 						for (int l = 3; l < 5; l++) {
-							if (value != 0 && value == board[k][l] && i != k && j != l) {
+							if (value != 0 && value == board[k][l].value() && i != k && j != l) {
 								return_array[i][j] = 1;
 							}
 						}
@@ -53,7 +59,7 @@ public class Sudoku_Class {
 				} else if (6 <= j && j <= 8 && 0 <= i && i <= 2) {
 					for (int k = 0; k < 3; k++) {
 						for (int l = 6; l < 8; l++) {
-							if (value != 0 && value == board[k][l] && i != k && j != l) {
+							if (value != 0 && value == board[k][l].value() && i != k && j != l) {
 								return_array[i][j] = 1;
 							}
 						}
@@ -62,7 +68,7 @@ public class Sudoku_Class {
 				} else if (0 <= j && j <= 2 && 3 <= i && i <= 5) {
 					for (int k = 3; k < 5; k++) {
 						for (int l = 0; l < 2; l++) {
-							if (value != 0 && value == board[k][l] && i != k && j != l) {
+							if (value != 0 && value == board[k][l].value() && i != k && j != l) {
 								return_array[i][j] = 1;
 							}
 						}
@@ -71,7 +77,7 @@ public class Sudoku_Class {
 				} else if (3 <= j && j <= 5 && 3 <= i && i <= 5) {
 					for (int k = 3; k < 5; k++) {
 						for (int l = 3; l < 5; l++) {
-							if (value != 0 && value == board[k][l] && i != k && j != l) {
+							if (value != 0 && value == board[k][l].value() && i != k && j != l) {
 								return_array[i][j] = 1;
 							}
 						}
@@ -80,7 +86,7 @@ public class Sudoku_Class {
 				} else if (6 <= j && j <= 8 && 3 <= i && i <= 5) {
 					for (int k = 3; k < 5; k++) {
 						for (int l = 6; l < 8; l++) {
-							if (value != 0 && value == board[k][l] && i != k && j != l) {
+							if (value != 0 && value == board[k][l].value() && i != k && j != l) {
 								return_array[i][j] = 1;
 							}
 						}
@@ -89,7 +95,7 @@ public class Sudoku_Class {
 				} else if (0 <= j && j <= 2 && 6 <= i && i <= 8) {
 					for (int k = 6; k < 8; k++) {
 						for (int l = 0; l < 2; l++) {
-							if (value != 0 && value == board[k][l] && i != k && j != l) {
+							if (value != 0 && value == board[k][l].value() && i != k && j != l) {
 								return_array[i][j] = 1;
 							}
 						}
@@ -98,7 +104,7 @@ public class Sudoku_Class {
 				} else if (3 <= j && j <= 5 && 6 <= i && i <= 8) {
 					for (int k = 6; k < 8; k++) {
 						for (int l = 3; l < 5; l++) {
-							if (value != 0 && value == board[k][l] && i != k && j != l) {
+							if (value != 0 && value == board[k][l].value() && i != k && j != l) {
 								return_array[i][j] = 1;
 							}
 						}
@@ -107,7 +113,7 @@ public class Sudoku_Class {
 				} else if (6 <= j && j <= 8 && 6 <= i && i <= 8) {
 					for (int k = 6; k < 8; k++) {
 						for (int l = 6; l < 8; l++) {
-							if (value != 0 && value == board[k][l] && i != k && j != l) {
+							if (value != 0 && value == board[k][l].value() && i != k && j != l) {
 								return_array[i][j] = 1;
 							}
 						}
@@ -120,7 +126,7 @@ public class Sudoku_Class {
 
 	
 	//Returns the board in its array form
-	public int[][] get_board(){
+	public Square_Entry[][] get_board(){
 		return board;
 	}
 	
@@ -138,7 +144,7 @@ public class Sudoku_Class {
 			//For every column
 			for(int j = 0; j < board[i].length; j++){
 				//Adds integer from board at row and column specified
-				string_board += board[i][j];
+				string_board += board[i][j].value();
 				//If it is not at the last integer of the row then adds space|space
 				if(j < board[i].length - 1){
 					string_board += " | ";
@@ -153,30 +159,30 @@ public class Sudoku_Class {
 	}
 
     // Methods by Hoang
-	int[][] validAllRowsAndCols() {
-		List<HashSet<Integer>> numInRow = new ArrayList<HashSet<Integer>>();
-		List<HashSet<Integer>> numInCol = new ArrayList<HashSet<Integer>>();
-		for (int i = 0; i < 9; i++) {
-			numInCol.add(new HashSet<Integer>());
-			numInRow.add(new HashSet<Integer>());
-		}
-		int[][] ans = new int[9][9];
-		for (int i = 0; i < 9; i++) {
-			for (int j = 0; j < 9; j++) {
-                ans[i][j] = 0;
-			    int val = board[i][j];
-				if (val > 0) {
-					if (numInRow.get(i).contains(val)) {
-						ans[i][j] = 1;
-					}
-					if (numInCol.get(j).contains(val)) {
-						ans[i][j] = 1;
-					}
-					numInRow.get(i).add(val);
-					numInCol.get(j).add(val);
-				}
-			}
-		}
-		return ans;
-	}
+//	int[][] validAllRowsAndCols() {
+//		List<HashSet<Integer>> numInRow = new ArrayList<HashSet<Integer>>();
+//		List<HashSet<Integer>> numInCol = new ArrayList<HashSet<Integer>>();
+//		for (int i = 0; i < 9; i++) {
+//			numInCol.add(new HashSet<Integer>());
+//			numInRow.add(new HashSet<Integer>());
+//		}
+//		int[][] ans = new int[9][9];
+//		for (int i = 0; i < 9; i++) {
+//			for (int j = 0; j < 9; j++) {
+//                ans[i][j] = 0;
+//			    int val = board[i][j];
+//				if (val > 0) {
+//					if (numInRow.get(i).contains(val)) {
+//						ans[i][j] = 1;
+//					}
+//					if (numInCol.get(j).contains(val)) {
+//						ans[i][j] = 1;
+//					}
+//					numInRow.get(i).add(val);
+//					numInCol.get(j).add(val);
+//				}
+//			}
+//		}
+//		return ans;
+//	}
 }
