@@ -69,8 +69,7 @@ public class Tests {
 			System.out.println("Output: \n" + output);
 		}
 		
-		expected[0][0] = 0;
-		expected[2][0] = 1;
+		//test3 checks using a board with a permanent square
 		input[0][0] = -1;
 		game = new Sudoku_Class(input);
 		output = game.validate_3x3_area();

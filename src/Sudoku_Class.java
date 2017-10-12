@@ -43,7 +43,7 @@ public class Sudoku_Class {
 						//For every column in the 3x3 area that the specified space is in
 						for (int l = 0; l < 3; l++) {
 							//If value is the same then it marks the spot in the return array
-							if (value != 0 && value >=0 && value == Math.abs(board[k][l]) && (i != k || j != l)) {
+							if (value != 0 && Math.abs(value) == Math.abs(board[k][l]) && (i != k || j != l)) {
 								return_array[i][j] = 1;
 							}
 						}
@@ -52,7 +52,7 @@ public class Sudoku_Class {
 				} else if (3 <= j && j <= 5 && 0 <= i && i <= 2) {
 					for (int k = 0; k < 3; k++) {
 						for (int l = 3; l < 5; l++) {
-							if (value != 0 && value >=0 && value == Math.abs(board[k][l]) && i != k && j != l) {
+							if (value != 0 && Math.abs(value) == Math.abs(board[k][l]) && i != k && j != l) {
 								return_array[i][j] = 1;
 							}
 						}
@@ -61,7 +61,7 @@ public class Sudoku_Class {
 				} else if (6 <= j && j <= 8 && 0 <= i && i <= 2) {
 					for (int k = 0; k < 3; k++) {
 						for (int l = 6; l < 8; l++) {
-							if (value != 0 && value >=0 && value == Math.abs(board[k][l]) && i != k && j != l) {
+							if (value != 0 && Math.abs(value) == Math.abs(board[k][l]) && i != k && j != l) {
 								return_array[i][j] = 1;
 							}
 						}
@@ -70,7 +70,7 @@ public class Sudoku_Class {
 				} else if (0 <= j && j <= 2 && 3 <= i && i <= 5) {
 					for (int k = 3; k < 5; k++) {
 						for (int l = 0; l < 2; l++) {
-							if (value != 0 && value >=0 && value == Math.abs(board[k][l]) && i != k && j != l) {
+							if (value != 0 && Math.abs(value) == Math.abs(board[k][l]) && i != k && j != l) {
 								return_array[i][j] = 1;
 							}
 						}
@@ -79,7 +79,7 @@ public class Sudoku_Class {
 				} else if (3 <= j && j <= 5 && 3 <= i && i <= 5) {
 					for (int k = 3; k < 5; k++) {
 						for (int l = 3; l < 5; l++) {
-							if (value != 0 && value >=0 && value == Math.abs(board[k][l]) && i != k && j != l) {
+							if (value != 0 && Math.abs(value) == Math.abs(board[k][l]) && i != k && j != l) {
 								return_array[i][j] = 1;
 							}
 						}
@@ -88,7 +88,7 @@ public class Sudoku_Class {
 				} else if (6 <= j && j <= 8 && 3 <= i && i <= 5) {
 					for (int k = 3; k < 5; k++) {
 						for (int l = 6; l < 8; l++) {
-							if (value != 0 && value >=0 && value == Math.abs(board[k][l]) && i != k && j != l) {
+							if (value != 0 && Math.abs(value) == Math.abs(board[k][l]) && i != k && j != l) {
 								return_array[i][j] = 1;
 							}
 						}
@@ -97,7 +97,7 @@ public class Sudoku_Class {
 				} else if (0 <= j && j <= 2 && 6 <= i && i <= 8) {
 					for (int k = 6; k < 8; k++) {
 						for (int l = 0; l < 2; l++) {
-							if (value != 0 && value >=0 && value == Math.abs(board[k][l]) && i != k && j != l) {
+							if (value != 0 && Math.abs(value) == Math.abs(board[k][l]) && i != k && j != l) {
 								return_array[i][j] = 1;
 							}
 						}
@@ -106,7 +106,7 @@ public class Sudoku_Class {
 				} else if (3 <= j && j <= 5 && 6 <= i && i <= 8) {
 					for (int k = 6; k < 8; k++) {
 						for (int l = 3; l < 5; l++) {
-							if (value != 0 && value >=0 && value == Math.abs(board[k][l]) && i != k && j != l) {
+							if (value != 0 && Math.abs(value) == Math.abs(board[k][l]) && i != k && j != l) {
 								return_array[i][j] = 1;
 							}
 						}
@@ -115,7 +115,7 @@ public class Sudoku_Class {
 				} else if (6 <= j && j <= 8 && 6 <= i && i <= 8) {
 					for (int k = 6; k < 8; k++) {
 						for (int l = 6; l < 8; l++) {
-							if (value != 0 && value >=0 && value == Math.abs(board[k][l]) && i != k && j != l) {
+							if (value != 0 && Math.abs(value) == Math.abs(board[k][l]) && i != k && j != l) {
 								return_array[i][j] = 1;
 							}
 						}
