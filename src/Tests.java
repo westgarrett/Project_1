@@ -1,8 +1,8 @@
-//import org.junit.Test;
+import org.junit.Test;
 
 import java.util.Arrays;
 
-//import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertArrayEquals;
 
 
 public class Tests {
@@ -139,7 +139,7 @@ public class Tests {
 	}
 
 	// Tests by Hoang
-//	@Test
+	@Test
 	public void testValidAllRowsAndCols0() {
 		int[][] testBoard = new int[9][9];
         int[][] expected = new int[9][9];
@@ -149,6 +149,6 @@ public class Tests {
 			}
 		}
 		Sudoku_Class game = new Sudoku_Class(testBoard);
-//		assertArrayEquals(game.validAllRowsAndCols(), expected);
+		assertArrayEquals(game.validAllRowsAndCols(), expected);
 	}
 }
