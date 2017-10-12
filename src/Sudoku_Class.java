@@ -1,19 +1,73 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Scanner;
 
 public class Sudoku_Class {
 	//Main board
 	private int[][] board = new int[9][9];
 
 	//Creates a new board
-	public Sudoku_Class(){
-		board = new int[9][9];
+	public Sudoku_Class() throws FileNotFoundException{
+		File f = new File("save_file.txt");
+		board = read_file(f);
 	}
 	
 	//Creates a board based on an input
 	public Sudoku_Class(int[][] input){
 		board = input;
+	}
+	
+	public void clear_save() throws FileNotFoundException{
+		File f = new File("save_file.txt");
+		PrintWriter write = new PrintWriter(f);
+		write.close();
+	}
+	
+	public void save() throws FileNotFoundException{
+		File f = new File("save_file.txt");
+		PrintWriter write = new PrintWriter(f);
+		for(int i = 0; i < board.length; i++){
+			for(int j = 0; j < board[i].length; j++){
+				write.print(board[i][j] + " ");
+			}
+		}
+		write.close();
+	}
+	
+	public static int[][] read_file(File file_name) throws FileNotFoundException{
+		int[][] return_array = new int[9][9];
+		File file = file_name;
+		Scanner file_scanner = new Scanner(file);
+		int row = 0;
+		int column = 0;
+		while(file_scanner.hasNext()){
+			String a = file_scanner.next();
+			int b = Integer.parseInt(a);
+				if(row < 9){
+				return_array[row][column] = b;
+				column++;
+				if(column >= 9){
+					column = 0;
+					row++;
+				}
+			}
+		}
+		file_scanner.close();
+		return return_array;
+	}
+	
+	public void clear_entries(){
+		for(int i = 0; i < board.length; i++){
+			for(int j = 0; j < board[i].length; j++){
+				if(board[i][j] > 0){
+					board[i][j] = 0;
+				}
+			}
+		}
 	}
 	
 	public boolean square_state(int row, int column){
@@ -192,4 +246,5 @@ public class Sudoku_Class {
 		}
 		return ans;
 	}
+
 }
