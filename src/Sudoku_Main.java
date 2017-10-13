@@ -30,7 +30,7 @@ public class Sudoku_Main {
 	public static void user_choice() throws FileNotFoundException{
 		String input = scanner.nextLine();
 		if(input.equals("change")){
-			System.out.println("Please enter 3 numbers row, column, value with spaces between them: ");
+			System.out.println("Please enter 3 numbers row(0-8), column(0-8), value(0-9) with spaces between them: ");
 			int row, col, val;
 			col = -1;
 			val = -1;
