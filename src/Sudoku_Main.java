@@ -1,4 +1,5 @@
 import java.io.FileNotFoundException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Sudoku_Main {
@@ -29,7 +30,28 @@ public class Sudoku_Main {
 	public static void user_choice() throws FileNotFoundException{
 		String input = scanner.nextLine();
 		if(input.equals("change")){
-			//code to direct to it goes here
+			System.out.println("Please enter 3 numbers row(0-8), column(0-8), value(0-9) with spaces between them: ");
+			int row, col, val;
+			col = -1;
+			val = -1;
+			row = -1;
+
+			// Read 3 numbers
+			boolean allNumbers = true;
+            try {
+                row = scanner.nextInt();
+                col = scanner.nextInt();
+                val = scanner.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("Numbers, please!");
+                scanner.nextLine();
+                allNumbers = false;
+            }
+
+            // Apply change
+            if (allNumbers && !game.setSquare(row, col, val)) {
+                System.out.println("Invalid! Please try again.");
+            }
 		}else if(input.equals("clear")){
 			//make sure it works once user can enter their choices
 			game.clear_entries();
