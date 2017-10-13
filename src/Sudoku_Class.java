@@ -105,7 +105,7 @@ public class Sudoku_Class {
 				//If specified space is between column 3 and 5 and row 0 and 2
 				} else if (3 <= j && j <= 5 && 0 <= i && i <= 2) {
 					for (int k = 0; k < 3; k++) {
-						for (int l = 3; l < 5; l++) {
+						for (int l = 3; l < 6; l++) {
 							if (value != 0 && Math.abs(value) == Math.abs(board[k][l]) && i != k && j != l) {
 								return_array[i][j] = 1;
 							}
@@ -114,7 +114,7 @@ public class Sudoku_Class {
 				//If specified space is between column 6 and 8 and row 0 and 2
 				} else if (6 <= j && j <= 8 && 0 <= i && i <= 2) {
 					for (int k = 0; k < 3; k++) {
-						for (int l = 6; l < 8; l++) {
+						for (int l = 6; l < 9; l++) {
 							if (value != 0 && Math.abs(value) == Math.abs(board[k][l]) && i != k && j != l) {
 								return_array[i][j] = 1;
 							}
@@ -122,8 +122,8 @@ public class Sudoku_Class {
 					}
 				//If specified space is between column 0 and 2 and row 3 and 5
 				} else if (0 <= j && j <= 2 && 3 <= i && i <= 5) {
-					for (int k = 3; k < 5; k++) {
-						for (int l = 0; l < 2; l++) {
+					for (int k = 3; k < 6; k++) {
+						for (int l = 0; l < 3; l++) {
 							if (value != 0 && Math.abs(value) == Math.abs(board[k][l]) && i != k && j != l) {
 								return_array[i][j] = 1;
 							}
@@ -131,8 +131,8 @@ public class Sudoku_Class {
 					}
 				//If specified space is between column 3 and 5 and row 3 and 5
 				} else if (3 <= j && j <= 5 && 3 <= i && i <= 5) {
-					for (int k = 3; k < 5; k++) {
-						for (int l = 3; l < 5; l++) {
+					for (int k = 3; k < 6; k++) {
+						for (int l = 3; l < 6; l++) {
 							if (value != 0 && Math.abs(value) == Math.abs(board[k][l]) && i != k && j != l) {
 								return_array[i][j] = 1;
 							}
@@ -140,8 +140,8 @@ public class Sudoku_Class {
 					}
 				//If specified space is between column 6 and 8 and row 3 and 5
 				} else if (6 <= j && j <= 8 && 3 <= i && i <= 5) {
-					for (int k = 3; k < 5; k++) {
-						for (int l = 6; l < 8; l++) {
+					for (int k = 3; k < 6; k++) {
+						for (int l = 6; l < 9; l++) {
 							if (value != 0 && Math.abs(value) == Math.abs(board[k][l]) && i != k && j != l) {
 								return_array[i][j] = 1;
 							}
@@ -149,8 +149,8 @@ public class Sudoku_Class {
 					}
 				//If specified space is between column 0 and 2 and row 6 and 8
 				} else if (0 <= j && j <= 2 && 6 <= i && i <= 8) {
-					for (int k = 6; k < 8; k++) {
-						for (int l = 0; l < 2; l++) {
+					for (int k = 6; k < 9; k++) {
+						for (int l = 0; l < 3; l++) {
 							if (value != 0 && Math.abs(value) == Math.abs(board[k][l]) && i != k && j != l) {
 								return_array[i][j] = 1;
 							}
@@ -158,8 +158,8 @@ public class Sudoku_Class {
 					}
 				//If specified space is between column 3 and 5 and row 6 and 8
 				} else if (3 <= j && j <= 5 && 6 <= i && i <= 8) {
-					for (int k = 6; k < 8; k++) {
-						for (int l = 3; l < 5; l++) {
+					for (int k = 6; k < 9; k++) {
+						for (int l = 3; l < 6; l++) {
 							if (value != 0 && Math.abs(value) == Math.abs(board[k][l]) && i != k && j != l) {
 								return_array[i][j] = 1;
 							}
@@ -167,8 +167,8 @@ public class Sudoku_Class {
 					}
 				//If specified space is between column 6 and 8 and row 6 and 8
 				} else if (6 <= j && j <= 8 && 6 <= i && i <= 8) {
-					for (int k = 6; k < 8; k++) {
-						for (int l = 6; l < 8; l++) {
+					for (int k = 6; k < 9; k++) {
+						for (int l = 6; l < 9; l++) {
 							if (value != 0 && Math.abs(value) == Math.abs(board[k][l]) && i != k && j != l) {
 								return_array[i][j] = 1;
 							}
@@ -265,11 +265,11 @@ public class Sudoku_Class {
 	    if (r < 0 || c < 0 || r > 9 || c > 9) {
 	        return false;
         }
-		if (square_state(r, c) || val < 0 || val > 9) {
+		if (is_permanent_square(r, c) || val < 0 || val > 9) {
 			return false;
 		}
 
 		board[r][c] = val;
 		return true;
-	}
+	}}
 
