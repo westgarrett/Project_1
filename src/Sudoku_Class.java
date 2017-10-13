@@ -70,7 +70,7 @@ public class Sudoku_Class {
 		}
 	}
 	
-	public boolean square_state(int row, int column){
+	public boolean is_permanent_square(int row, int column){
 		if(board[row][column] < 0){
 			return true;
 		}else{

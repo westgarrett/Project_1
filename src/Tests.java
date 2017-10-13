@@ -17,7 +17,7 @@ public class Tests {
 		create_sudoku_class_with_input_tests();
 		print_board_tests();
 		validate_3x3_area_tests();
-		square_state_tests();
+		is_permanent_square_tests();
 		clear_entries_tests();
 		read_file_tests();
 		save_tests();
@@ -186,15 +186,15 @@ public class Tests {
 		}
 	}
 	
-	public static void square_state_tests(){
+	public static void is_permanent_square_tests(){
 		boolean expected = false;
 		int[][] input = {{5,3,4,6,7,8,9,1,2},{6,7,2,1,9,5,3,4,8},{1,9,8,3,4,2,5,6,7},{8,5,9,7,6,1,4,2,3},{4,2,6,8,5,3,4,9,1},{7,1,3,9,2,4,8,5,6},{9,6,1,5,3,7,2,8,4},{2,8,7,4,1,9,6,3,5},{3,4,5,2,8,6,1,7,9}};
 		Sudoku_Class game = new Sudoku_Class(input);
-		boolean output = game.square_state(0, 0);
+		boolean output = game.is_permanent_square(0, 0);
 		if(expected == output){
-			System.out.println("square_state() test1 worked");
+			System.out.println("is_permanent_square() test1 worked");
 		}else{
-			System.out.println("square_state() test1 failed");
+			System.out.println("is_permanent_square() test1 failed");
 			System.out.println("Expected: \n" + expected);
 			System.out.println("Output: \n" + output);
 		}
@@ -202,11 +202,11 @@ public class Tests {
 		input[0][0] = -5;
 		expected = true;
 		game = new Sudoku_Class(input);
-		output = game.square_state(0, 0);
+		output = game.is_permanent_square(0, 0);
 		if(expected == output){
-			System.out.println("square_state() test2 worked");
+			System.out.println("is_permanent_square() test2 worked");
 		}else{
-			System.out.println("square_state() test2 failed");
+			System.out.println("is_permanent_square() test2 failed");
 			System.out.println("Expected: \n" + expected);
 			System.out.println("Output: \n" + output);
 		}
