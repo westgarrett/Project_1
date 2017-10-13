@@ -29,7 +29,13 @@ public class Sudoku_Main {
 	public static void user_choice() throws FileNotFoundException{
 		String input = scanner.nextLine();
 		if(input.equals("change")){
-			//code to direct to it goes here
+			System.out.println("Please enter 3 numbers row, column, value: ");
+			int row = scanner.nextInt();
+			int col = scanner.nextInt();
+			int val = scanner.nextInt();
+			if (!game.setSquare(row, col, val)) {
+				System.out.println("Invalid! Please try again.");
+			}
 		}else if(input.equals("clear")){
 			//make sure it works once user can enter their choices
 			game.clear_entries();
