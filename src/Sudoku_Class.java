@@ -35,7 +35,7 @@ public class Sudoku_Class {
 			//For every column
 			for (int j = 0; j < board[i].length; j++) {
 				//Gets the value at the specified space
-				int value = Math.abs(board[i][j]);
+				int value = board[i][j];
 				//If specified space is between column 0 and 2 and row 0 and 2
 				if (0 <= j && j <= 2 && 0 <= i && i <= 2) {
 					//For every row in the 3x3 area that the specified space is in
@@ -207,7 +207,10 @@ public class Sudoku_Class {
 	// Return true if the square is successfully set to new value, false otherwise
 	// No validation in this function.
 	public boolean setSquare(int r, int c, int val) {
-		if (square_state(r, c)) {
+	    if (r < 0 || c < 0 || r > 9 || c > 9) {
+	        return false;
+        }
+		if (square_state(r, c) || val < 0 || val > 9) {
 			return false;
 		}
 

@@ -216,4 +216,22 @@ public class Tests {
         Sudoku_Class game = new Sudoku_Class(testBoard);
         assertArrayEquals(expected, game.validBoard());
     }
+
+    @Test
+    public void testSetSquare0() {
+        int[][] testBoard = new int[9][9];
+        testBoard[0][0] = -1;
+        testBoard[0][1] = 1;
+        Sudoku_Class game = new Sudoku_Class(testBoard);
+        assertEquals(false, game.setSquare(0,0, 3));
+        assertEquals(false, game.setSquare(0,0, 0));
+        assertEquals(true, game.setSquare(0,1, 3));
+        assertEquals(true, game.setSquare(0,1, 0));
+        assertEquals(false, game.setSquare(0,1, -3));
+        assertEquals(false, game.setSquare(0,2, 13));
+        assertEquals(false, game.setSquare(0,2, -2));
+        assertEquals(false, game.setSquare(0,-1, 5));
+        assertEquals(false, game.setSquare(13,0, -2));
+        assertEquals(true, game.setSquare(8,0, 9));
+    }
 }
