@@ -82,7 +82,10 @@ public class Sudoku_Main {
 
             // Apply change
             if (allNumbers && !game.setSquare(row, col, val)) {
-            	scanner.nextLine();
+            	if(game.setSquare(row, col, val)){
+            		scanner.nextLine();
+            	}
+            	
                 System.out.println("Invalid! Please try again.");
             }
 		}else if(input.equals("clear")){
