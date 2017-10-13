@@ -1,14 +1,19 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Scanner;
 
 public class Sudoku_Class {
 	//Main board
 	private int[][] board = new int[9][9];
 
 	//Creates a new board
-	public Sudoku_Class(){
-		board = new int[9][9];
+	public Sudoku_Class() throws FileNotFoundException{
+		File f = new File("save_file.txt");
+		board = read_file(f);
 	}
 	
 	//Creates a board based on an input
@@ -16,7 +21,56 @@ public class Sudoku_Class {
 		board = input;
 	}
 	
-	public boolean square_state(int row, int column){
+	public void clear_save() throws FileNotFoundException{
+		File f = new File("save_file.txt");
+		PrintWriter write = new PrintWriter(f);
+		write.close();
+	}
+	
+	public void save() throws FileNotFoundException{
+		File f = new File("save_file.txt");
+		PrintWriter write = new PrintWriter(f);
+		for(int i = 0; i < board.length; i++){
+			for(int j = 0; j < board[i].length; j++){
+				write.print(board[i][j] + " ");
+			}
+		}
+		write.close();
+	}
+	
+	public static int[][] read_file(File file_name) throws FileNotFoundException{
+		int[][] return_array = new int[9][9];
+		File file = file_name;
+		Scanner file_scanner = new Scanner(file);
+		int row = 0;
+		int column = 0;
+		while(file_scanner.hasNext()){
+			String a = file_scanner.next();
+			int b = Integer.parseInt(a);
+				if(row < 9){
+				return_array[row][column] = b;
+				column++;
+				if(column >= 9){
+					column = 0;
+					row++;
+				}
+			}
+		}
+		file_scanner.close();
+		return return_array;
+	}
+	
+	public void clear_entries(){
+		for(int i = 0; i < board.length; i++){
+			for(int j = 0; j < board[i].length; j++){
+				if(board[i][j] > 0){
+					board[i][j] = 0;
+				}
+			}
+		}
+	}
+	
+	public boolean is_permanent_square(int row, int column){
 		if(board[row][column] < 0){
 			return true;
 		}else{
@@ -43,7 +97,7 @@ public class Sudoku_Class {
 						//For every column in the 3x3 area that the specified space is in
 						for (int l = 0; l < 3; l++) {
 							//If value is the same then it marks the spot in the return array
-							if (value != 0 && value >=0 && value == Math.abs(board[k][l]) && (i != k || j != l)) {
+							if (value != 0 && Math.abs(value) == Math.abs(board[k][l]) && (i != k || j != l)) {
 								return_array[i][j] = 1;
 							}
 						}
@@ -52,7 +106,7 @@ public class Sudoku_Class {
 				} else if (3 <= j && j <= 5 && 0 <= i && i <= 2) {
 					for (int k = 0; k < 3; k++) {
 						for (int l = 3; l < 5; l++) {
-							if (value != 0 && value >=0 && value == Math.abs(board[k][l]) && i != k && j != l) {
+							if (value != 0 && Math.abs(value) == Math.abs(board[k][l]) && i != k && j != l) {
 								return_array[i][j] = 1;
 							}
 						}
@@ -61,7 +115,7 @@ public class Sudoku_Class {
 				} else if (6 <= j && j <= 8 && 0 <= i && i <= 2) {
 					for (int k = 0; k < 3; k++) {
 						for (int l = 6; l < 8; l++) {
-							if (value != 0 && value >=0 && value == Math.abs(board[k][l]) && i != k && j != l) {
+							if (value != 0 && Math.abs(value) == Math.abs(board[k][l]) && i != k && j != l) {
 								return_array[i][j] = 1;
 							}
 						}
@@ -70,7 +124,7 @@ public class Sudoku_Class {
 				} else if (0 <= j && j <= 2 && 3 <= i && i <= 5) {
 					for (int k = 3; k < 5; k++) {
 						for (int l = 0; l < 2; l++) {
-							if (value != 0 && value >=0 && value == Math.abs(board[k][l]) && i != k && j != l) {
+							if (value != 0 && Math.abs(value) == Math.abs(board[k][l]) && i != k && j != l) {
 								return_array[i][j] = 1;
 							}
 						}
@@ -79,7 +133,7 @@ public class Sudoku_Class {
 				} else if (3 <= j && j <= 5 && 3 <= i && i <= 5) {
 					for (int k = 3; k < 5; k++) {
 						for (int l = 3; l < 5; l++) {
-							if (value != 0 && value >=0 && value == Math.abs(board[k][l]) && i != k && j != l) {
+							if (value != 0 && Math.abs(value) == Math.abs(board[k][l]) && i != k && j != l) {
 								return_array[i][j] = 1;
 							}
 						}
@@ -88,7 +142,7 @@ public class Sudoku_Class {
 				} else if (6 <= j && j <= 8 && 3 <= i && i <= 5) {
 					for (int k = 3; k < 5; k++) {
 						for (int l = 6; l < 8; l++) {
-							if (value != 0 && value >=0 && value == Math.abs(board[k][l]) && i != k && j != l) {
+							if (value != 0 && Math.abs(value) == Math.abs(board[k][l]) && i != k && j != l) {
 								return_array[i][j] = 1;
 							}
 						}
@@ -97,7 +151,7 @@ public class Sudoku_Class {
 				} else if (0 <= j && j <= 2 && 6 <= i && i <= 8) {
 					for (int k = 6; k < 8; k++) {
 						for (int l = 0; l < 2; l++) {
-							if (value != 0 && value >=0 && value == Math.abs(board[k][l]) && i != k && j != l) {
+							if (value != 0 && Math.abs(value) == Math.abs(board[k][l]) && i != k && j != l) {
 								return_array[i][j] = 1;
 							}
 						}
@@ -106,7 +160,7 @@ public class Sudoku_Class {
 				} else if (3 <= j && j <= 5 && 6 <= i && i <= 8) {
 					for (int k = 6; k < 8; k++) {
 						for (int l = 3; l < 5; l++) {
-							if (value != 0 && value >=0 && value == Math.abs(board[k][l]) && i != k && j != l) {
+							if (value != 0 && Math.abs(value) == Math.abs(board[k][l]) && i != k && j != l) {
 								return_array[i][j] = 1;
 							}
 						}
@@ -115,7 +169,7 @@ public class Sudoku_Class {
 				} else if (6 <= j && j <= 8 && 6 <= i && i <= 8) {
 					for (int k = 6; k < 8; k++) {
 						for (int l = 6; l < 8; l++) {
-							if (value != 0 && value >=0 && value == Math.abs(board[k][l]) && i != k && j != l) {
+							if (value != 0 && Math.abs(value) == Math.abs(board[k][l]) && i != k && j != l) {
 								return_array[i][j] = 1;
 							}
 						}
@@ -191,6 +245,7 @@ public class Sudoku_Class {
 		return ans;
 	}
 
+
 	// Return 9x9 0/1 board denotes if a square is invalid or not.
 	int[][] validBoard() {
 		int[][] rowsAndCols = validAllRowsAndCols();
@@ -217,4 +272,4 @@ public class Sudoku_Class {
 		board[r][c] = val;
 		return true;
 	}
-}
+
