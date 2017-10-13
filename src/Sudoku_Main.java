@@ -30,7 +30,7 @@ public class Sudoku_Main {
 	public static void user_choice() throws FileNotFoundException{
 		String input = scanner.nextLine();
 		if(input.equals("change")){
-			System.out.println("Please enter 3 numbers row(0-8), column(0-8), value(0-9) with spaces between them: ");
+			System.out.println("Please enter 3 numbers row(0-8), column(0-8), value(0-9) with spaces between them or enter back to return to previous menu: ");
 			int row, col, val;
 			col = -1;
 			val = -1;
@@ -43,8 +43,10 @@ public class Sudoku_Main {
                 col = scanner.nextInt();
                 val = scanner.nextInt();
             } catch (InputMismatchException e) {
-                System.out.println("Numbers, please!");
-                scanner.nextLine();
+            	if(!scanner.nextLine().equals("back")){
+            		System.out.println("Numbers, please!");
+            		scanner.nextLine();
+            	}
                 allNumbers = false;
             }
 
@@ -64,7 +66,7 @@ public class Sudoku_Main {
 			start_game();
 		}else{
 			System.out.println("Your response was not one of the availible choices");
-			user_choice();
+//			user_choice();
 		}
 	}
 		
