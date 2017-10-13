@@ -24,13 +24,22 @@ public class Sudoku_Main {
 			game.print_board();
 			System.out.println("\nEnter 'change' to change an entry, 'clear' to clear the board of all of the entries, 'end' to end the game and start a new one, 'save' to save the game, and 'exit' to exit the game");
 			user_choice();
+			win = game.win();
+		}
+		System.out.println("Congradulations, you have won!");
+		System.out.println("Play Again: 'Yes' or 'No'");
+		String input = scanner.nextLine();
+		if(input.equals("Yes")){
+			start_game();
+		}else{
+			menu();
 		}
 	}
 
 	public static void user_choice() throws FileNotFoundException{
 		String input = scanner.nextLine();
 		if(input.equals("change")){
-			System.out.println("Please enter 3 numbers row(0-8), column(0-8), value(0-9) with spaces between them: ");
+			System.out.println("Please enter 3 numbers row(0-8), column(0-8), value(0-9) with spaces between them or enter back to return to previous menu: ");
 			int row, col, val;
 			col = -1;
 			val = -1;
@@ -64,8 +73,10 @@ public class Sudoku_Main {
             		temp.close();
             	}
             } catch (InputMismatchException e) {
-                System.out.println("Numbers, please!");
-                scanner.nextLine();
+            	if(!scanner.nextLine().equals("back")){
+            		System.out.println("Numbers, please!");
+            		scanner.nextLine();
+            	}
                 allNumbers = false;
             }
 
@@ -86,6 +97,7 @@ public class Sudoku_Main {
 			start_game();
 		}else{
 			System.out.println("Your response was not one of the availible choices");
+
 		}
 	}
 		
