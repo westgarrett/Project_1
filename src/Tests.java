@@ -24,6 +24,33 @@ public class Tests {
 		read_file_tests();
 		save_tests();
 		clear_save_tests();
+		win_tests();
+	}
+	
+	public static void win_tests() throws FileNotFoundException{
+		int[][] input = {{5,3,4,6,7,8,9,1,2},{6,7,2,1,9,5,3,4,8},{1,9,8,3,4,2,5,6,7},{8,5,9,7,6,1,4,2,3},{4,2,6,8,5,3,7,9,1},{7,1,3,9,2,4,8,5,6},{9,6,1,5,3,7,2,8,4},{2,8,7,4,1,9,6,3,5},{3,4,5,2,8,6,1,7,9}};
+		Sudoku_Class game = new Sudoku_Class(input);
+		boolean expected = true;
+		boolean output = game.win();
+		if(expected == output){
+			System.out.println("win() test1 worked");
+		}else{
+			System.out.println("win() test1 failed");
+			System.out.println("Expected: \n" + expected);
+			System.out.println("Output: \n" + output);
+		}
+		
+		expected = false;
+		input[0][0] = 1;
+		game = new Sudoku_Class(input);
+		output = game.win();
+		if(expected == output){
+			System.out.println("win() test2 worked");
+		}else{
+			System.out.println("win() test2 failed");
+			System.out.println("Expected: \n" + expected);
+			System.out.println("Output: \n" + output);
+		}
 	}
 	
 	public static void clear_save_tests() throws FileNotFoundException{
@@ -217,7 +244,7 @@ public class Tests {
 	public static void validate_3x3_area_tests(){
 		//test1 checks using a correct sudoku board
 		int[][] expected = {{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0}};
-		int[][] input = {{5,3,4,6,7,8,9,1,2},{6,7,2,1,9,5,3,4,8},{1,9,8,3,4,2,5,6,7},{8,5,9,7,6,1,4,2,3},{4,2,6,8,5,3,4,9,1},{7,1,3,9,2,4,8,5,6},{9,6,1,5,3,7,2,8,4},{2,8,7,4,1,9,6,3,5},{3,4,5,2,8,6,1,7,9}};
+		int[][] input = {{5,3,4,6,7,8,9,1,2},{6,7,2,1,9,5,3,4,8},{1,9,8,3,4,2,5,6,7},{8,5,9,7,6,1,4,2,3},{4,2,6,8,5,3,7,9,1},{7,1,3,9,2,4,8,5,6},{9,6,1,5,3,7,2,8,4},{2,8,7,4,1,9,6,3,5},{3,4,5,2,8,6,1,7,9}};
 		Sudoku_Class game = new Sudoku_Class(input);
 		int[][] output = game.validate_3x3_area();
 		if(Arrays.deepEquals(expected, output)){

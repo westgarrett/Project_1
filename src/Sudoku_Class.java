@@ -21,6 +21,28 @@ public class Sudoku_Class {
 		board = input;
 	}
 	
+	public boolean win(){
+		boolean return_value = true;
+		int[][] valid_array = validBoard();
+		for(int i = 0; i < board.length; i++){
+			for(int j = 0; j < valid_array[i].length; j++){
+				if(board[i][j] == 0){
+					return_value = false;
+				}
+			}
+		}
+		if(return_value){
+			for(int i = 0; i < valid_array.length; i++){
+				for(int j = 0; j < valid_array[i].length; j++){
+					if(valid_array[i][j] != 0){
+						return_value = false;
+					}
+				}
+			}
+		}		
+		return return_value;
+	}
+	
 	public void clear_save() throws FileNotFoundException{
 		File f = new File("save_file.txt");
 		PrintWriter write = new PrintWriter(f);
@@ -106,7 +128,7 @@ public class Sudoku_Class {
 				} else if (3 <= j && j <= 5 && 0 <= i && i <= 2) {
 					for (int k = 0; k < 3; k++) {
 						for (int l = 3; l < 6; l++) {
-							if (value != 0 && Math.abs(value) == Math.abs(board[k][l]) && i != k && j != l) {
+							if (value != 0 && Math.abs(value) == Math.abs(board[k][l]) && (i != k || j != l)) {
 								return_array[i][j] = 1;
 							}
 						}
@@ -115,7 +137,7 @@ public class Sudoku_Class {
 				} else if (6 <= j && j <= 8 && 0 <= i && i <= 2) {
 					for (int k = 0; k < 3; k++) {
 						for (int l = 6; l < 9; l++) {
-							if (value != 0 && Math.abs(value) == Math.abs(board[k][l]) && i != k && j != l) {
+							if (value != 0 && Math.abs(value) == Math.abs(board[k][l]) && (i != k || j != l)) {
 								return_array[i][j] = 1;
 							}
 						}
@@ -124,7 +146,7 @@ public class Sudoku_Class {
 				} else if (0 <= j && j <= 2 && 3 <= i && i <= 5) {
 					for (int k = 3; k < 6; k++) {
 						for (int l = 0; l < 3; l++) {
-							if (value != 0 && Math.abs(value) == Math.abs(board[k][l]) && i != k && j != l) {
+							if (value != 0 && Math.abs(value) == Math.abs(board[k][l]) && (i != k || j != l)) {
 								return_array[i][j] = 1;
 							}
 						}
@@ -133,7 +155,7 @@ public class Sudoku_Class {
 				} else if (3 <= j && j <= 5 && 3 <= i && i <= 5) {
 					for (int k = 3; k < 6; k++) {
 						for (int l = 3; l < 6; l++) {
-							if (value != 0 && Math.abs(value) == Math.abs(board[k][l]) && i != k && j != l) {
+							if (value != 0 && Math.abs(value) == Math.abs(board[k][l]) && (i != k || j != l)) {
 								return_array[i][j] = 1;
 							}
 						}
@@ -142,7 +164,7 @@ public class Sudoku_Class {
 				} else if (6 <= j && j <= 8 && 3 <= i && i <= 5) {
 					for (int k = 3; k < 6; k++) {
 						for (int l = 6; l < 9; l++) {
-							if (value != 0 && Math.abs(value) == Math.abs(board[k][l]) && i != k && j != l) {
+							if (value != 0 && Math.abs(value) == Math.abs(board[k][l]) && (i != k || j != l)) {
 								return_array[i][j] = 1;
 							}
 						}
@@ -151,7 +173,7 @@ public class Sudoku_Class {
 				} else if (0 <= j && j <= 2 && 6 <= i && i <= 8) {
 					for (int k = 6; k < 9; k++) {
 						for (int l = 0; l < 3; l++) {
-							if (value != 0 && Math.abs(value) == Math.abs(board[k][l]) && i != k && j != l) {
+							if (value != 0 && Math.abs(value) == Math.abs(board[k][l]) && (i != k || j != l)) {
 								return_array[i][j] = 1;
 							}
 						}
@@ -160,7 +182,7 @@ public class Sudoku_Class {
 				} else if (3 <= j && j <= 5 && 6 <= i && i <= 8) {
 					for (int k = 6; k < 9; k++) {
 						for (int l = 3; l < 6; l++) {
-							if (value != 0 && Math.abs(value) == Math.abs(board[k][l]) && i != k && j != l) {
+							if (value != 0 && Math.abs(value) == Math.abs(board[k][l]) && (i != k || j != l)) {
 								return_array[i][j] = 1;
 							}
 						}
@@ -169,7 +191,7 @@ public class Sudoku_Class {
 				} else if (6 <= j && j <= 8 && 6 <= i && i <= 8) {
 					for (int k = 6; k < 9; k++) {
 						for (int l = 6; l < 9; l++) {
-							if (value != 0 && Math.abs(value) == Math.abs(board[k][l]) && i != k && j != l) {
+							if (value != 0 && Math.abs(value) == Math.abs(board[k][l]) && (i != k || j != l)) {
 								return_array[i][j] = 1;
 							}
 						}
