@@ -8,9 +8,11 @@ import java.io.PrintWriter;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 
 
 public class Tests {
+
 
 	public static void main(String[] args) throws IOException {
 		create_sudoku_class_no_input_tests();
@@ -321,17 +323,98 @@ public class Tests {
 		}
 	}
 
-	// Tests by Hoang
-	@Test
-	public void testValidAllRowsAndCols0() {
-		int[][] testBoard = new int[9][9];
+    // Tests by Hoang
+    @Test
+    public void testValidAllRowsAndCols0() {
+        int[][] testBoard = new int[9][9];
         int[][] expected = new int[9][9];
-		for (int i = 0; i < 9; i++) {
-			for (int j = 0; j < 9; j++) {
-				testBoard[i][j] = (i + j) % 9 + 1;
-			}
-		}
-		Sudoku_Class game = new Sudoku_Class(testBoard);
-		assertArrayEquals(game.validAllRowsAndCols(), expected);
-	}
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                testBoard[i][j] = (i + j) % 9 + 1;
+            }
+        }
+        Sudoku_Class game = new Sudoku_Class(testBoard);
+        assertArrayEquals(expected, game.validAllRowsAndCols());
+    }
+
+    @Test
+    public void testValidAllRowsAndCols1() {
+        int[][] testBoard = {   {1, 0, 1, 0, 0, 0, 0, 0, 0},
+                                {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                {0, 0, -1, 0, 0, 0, 0, 0, 0},
+                                {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                {0, 0, 6, -6, 0, 0, 0, 0, 0},
+                                {0, 0, 9, 0, 9, 0, 0, 0, 0},
+                                {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                {0, 0, 6, 0, 0, 0, 0, 3, 0},
+                                {0, 0, 3, 0, 0, 0, 0, 0, 3}};
+        int[][] expected = {    {1, 0, 1, 0, 0, 0, 0, 0, 0},
+                                {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                {0, 0, 1, 0, 0, 0, 0, 0, 0},
+                                {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                {0, 0, 1, 1, 0, 0, 0, 0, 0},
+                                {0, 0, 1, 0, 1, 0, 0, 0, 0},
+                                {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                {0, 0, 1, 0, 0, 0, 0, 0, 0},
+                                {0, 0, 1, 0, 0, 0, 0, 0, 1}};
+        Sudoku_Class game = new Sudoku_Class(testBoard);
+        assertArrayEquals(expected, game.validAllRowsAndCols());
+    }
+
+    @Test
+    public void testValidBoard0() {
+        int[][] testBoard = new int[9][9];
+        int[][] expected = new int[9][9];
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                testBoard[i][j] = 1;
+                testBoard[i][j] *= Math.random() < .5 ? -1 : 1;
+                expected[i][j] = 1;
+            }
+        }
+        Sudoku_Class game = new Sudoku_Class(testBoard);
+        assertArrayEquals(expected, game.validBoard());
+    }
+
+    @Test
+    public void testValidBoard1() {
+        int[][] testBoard = {   {1, 0, 1, -5, 0, 0, -6, 6, -6},
+                                {0, -4, 0, 0, 5, 0, 6, -6, 6},
+                                {4, 0, -1, 0, 0, 0, 5, 6, 0},
+                                {0, 0, 0, 0, 0, 5, 8, 0, 0},
+                                {0, 0, 6, -6, 0, 0, 0, -8, 5},
+                                {0, 0, 9, 0, 9, 0, 0, 0, -8},
+                                {0, -2, 0, 0, 0, 7, 0, 0, 0},
+                                {2, 0, 6, 0, 7, 0, 0, -3, 0},
+                                {0, 0, 3, -7, 0, 0, 0, 0, 3}};
+        int[][] expected = {    {1, 0, 1, 1, 0, 0, 1, 1, 1},
+                                {0, 1, 0, 0, 1, 0, 1, 1, 1},
+                                {1, 0, 1, 0, 0, 0, 0, 1, 0},
+                                {0, 0, 0, 0, 0, 0, 1, 0, 0},
+                                {0, 0, 1, 1, 0, 0, 0, 1, 0},
+                                {0, 0, 1, 0, 1, 0, 0, 0, 1},
+                                {0, 1, 0, 0, 0, 1, 0, 0, 0},
+                                {1, 0, 1, 0, 1, 0, 0, 1, 0},
+                                {0, 0, 1, 1, 0, 0, 0, 0, 1}};
+        Sudoku_Class game = new Sudoku_Class(testBoard);
+        assertArrayEquals(expected, game.validBoard());
+    }
+
+    @Test
+    public void testSetSquare0() {
+        int[][] testBoard = new int[9][9];
+        testBoard[0][0] = -1;
+        testBoard[0][1] = 1;
+        Sudoku_Class game = new Sudoku_Class(testBoard);
+        assertEquals(false, game.setSquare(0,0, 3));
+        assertEquals(false, game.setSquare(0,0, 0));
+        assertEquals(true, game.setSquare(0,1, 3));
+        assertEquals(true, game.setSquare(0,1, 0));
+        assertEquals(false, game.setSquare(0,1, -3));
+        assertEquals(false, game.setSquare(0,2, 13));
+        assertEquals(false, game.setSquare(0,2, -2));
+        assertEquals(false, game.setSquare(0,-1, 5));
+        assertEquals(false, game.setSquare(13,0, -2));
+        assertEquals(true, game.setSquare(8,0, 9));
+    }
 }

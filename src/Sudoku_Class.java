@@ -221,30 +221,55 @@ public class Sudoku_Class {
 
     // Methods by Hoang
 	int[][] validAllRowsAndCols() {
-		List<HashSet<Integer>> numInRow = new ArrayList<HashSet<Integer>>();
-		List<HashSet<Integer>> numInCol = new ArrayList<HashSet<Integer>>();
-		for (int i = 0; i < 9; i++) {
-			numInCol.add(new HashSet<Integer>());
-			numInRow.add(new HashSet<Integer>());
-		}
 		int[][] ans = new int[9][9];
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
                 ans[i][j] = 0;
-			    int val = board[i][j];
-				if (val > 0) {
-					if (numInRow.get(i).contains(val)) {
-						ans[i][j] = 1;
+                int val = Math.abs(board[i][j]);
+				if (val != 0) {
+				    // Check for row
+					for (int k = 0; k < 9; k++) {
+						if (k != j && val == Math.abs(board[i][k])) {
+						    ans[i][j] = 1;
+                        }
 					}
-					if (numInCol.get(j).contains(val)) {
-						ans[i][j] = 1;
-					}
-					numInRow.get(i).add(val);
-					numInCol.get(j).add(val);
+					// Check for col
+                    for (int k = 0; k < 9; k++) {
+					    if (k != i && val == Math.abs(board[k][j])) {
+					        ans[i][j] = 1;
+                        }
+                    }
 				}
 			}
 		}
 		return ans;
 	}
 
-}
+
+	// Return 9x9 0/1 board denotes if a square is invalid or not.
+	int[][] validBoard() {
+		int[][] rowsAndCols = validAllRowsAndCols();
+		int[][] local3x3 = validate_3x3_area();
+		int[][] res = new int[9][9];
+		for (int i = 0; i < 9; i++) {
+			for (int j = 0; j < 9; j++) {
+				res[i][j] = rowsAndCols[i][j] | local3x3[i][j];
+			}
+		}
+		return res;
+	}
+
+	// Return true if the square is successfully set to new value, false otherwise
+	// No validation in this function.
+	public boolean setSquare(int r, int c, int val) {
+	    if (r < 0 || c < 0 || r > 9 || c > 9) {
+	        return false;
+        }
+		if (square_state(r, c) || val < 0 || val > 9) {
+			return false;
+		}
+
+		board[r][c] = val;
+		return true;
+	}
+
