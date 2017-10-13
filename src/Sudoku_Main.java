@@ -39,9 +39,30 @@ public class Sudoku_Main {
 			// Read 3 numbers
 			boolean allNumbers = true;
             try {
-                row = scanner.nextInt();
-                col = scanner.nextInt();
-                val = scanner.nextInt();
+            	if(scanner.hasNextInt()){
+            		String user_input = "";
+            		user_input = scanner.nextLine();
+            		Scanner temp = new Scanner(user_input);
+            		if(temp.hasNextInt()){
+            			row = temp.nextInt();
+            			if(temp.hasNextInt()){
+                			col = temp.nextInt();
+                			if(temp.hasNextInt()){
+                    			val = temp.nextInt();
+                    		}else{
+                    			System.out.println("Please put spaces between the numbers");
+                    			allNumbers = false;
+                    		}
+                		}else{
+                			System.out.println("Please put spaces between the numbers");
+                			allNumbers = false;
+                		}
+            		}else{
+            			System.out.println("Please put spaces between the numbers");
+            			allNumbers = false;
+            		}
+            		temp.close();
+            	}
             } catch (InputMismatchException e) {
                 System.out.println("Numbers, please!");
                 scanner.nextLine();
@@ -50,6 +71,7 @@ public class Sudoku_Main {
 
             // Apply change
             if (allNumbers && !game.setSquare(row, col, val)) {
+            	scanner.nextLine();
                 System.out.println("Invalid! Please try again.");
             }
 		}else if(input.equals("clear")){
@@ -64,7 +86,6 @@ public class Sudoku_Main {
 			start_game();
 		}else{
 			System.out.println("Your response was not one of the availible choices");
-			user_choice();
 		}
 	}
 		
