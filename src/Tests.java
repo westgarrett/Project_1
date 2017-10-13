@@ -251,6 +251,19 @@ public class Tests {
 			System.out.println("Expected: \n" + expected);
 			System.out.println("Output: \n" + output);
 		}
+		
+		//test4
+		int[][] new_input = {{1,-2,-3,4,5,6,7,8,9},{-2,-3,-4,-5,-6,-7,-8,-9,1},{3,4,-5,6,-7,-8,9,1,2},{-4,5,6,-7,-8,9,1,2,3},{5,6,-7,-8,-9,1,-2,3,-4},{6,-7,-8,9,-1,-2,3,-4,-5},{-7,-8,9,-1,-2,-3,4,-5,-6},{8,9,1,-2,3,-4,-5,-6,-7},{-9,-1,-2,-3,-4,-5,-6,7,-8}};
+		game = new Sudoku_Class(new_input);
+		output = game.validate_3x3_area();
+		int[][] new_expected = {{0, 1, 1, 0, 1, 1, 0, 1, 1}, {1, 1, 1, 1, 1, 1, 1, 1, 1}, {1, 1, 0, 1, 0, 0, 1, 0, 0}, {0, 1, 1, 0, 1, 1, 0, 1, 1}, {1, 0, 0, 1, 0, 0, 1, 0, 0}, {1, 0, 0, 1, 0, 0, 1, 0, 0}, {0, 1, 1, 0, 1, 1, 0, 1, 1}, {1, 0, 0, 1, 0, 0, 1, 0, 0}, {1, 0, 0, 1, 0, 0, 1, 0, 0}};
+		if(Arrays.deepEquals(new_expected, output)){
+			System.out.println("validate_3x3_area() test4 worked");
+		}else{
+			System.out.println("validate_3x3_area() test4 failed");
+			System.out.println("Expected: \n" + expected);
+			System.out.println("Output: \n" + output);
+		}
 	}
 
 	

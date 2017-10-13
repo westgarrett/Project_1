@@ -3,8 +3,10 @@ import java.util.Scanner;
 
 public class Sudoku_Main {
 	private static Sudoku_Class game;
+	private static Scanner scanner;
 	
 	public static void main(String[] args) throws FileNotFoundException {
+		scanner = new Scanner(System.in);
 		menu();
 	}
 
@@ -25,11 +27,11 @@ public class Sudoku_Main {
 	}
 
 	public static void user_choice() throws FileNotFoundException{
-		Scanner scanner = new Scanner(System.in);
 		String input = scanner.nextLine();
 		if(input.equals("change")){
 			//code to direct to it goes here
 		}else if(input.equals("clear")){
+			//make sure it works once user can enter their choices
 			game.clear_entries();
 		}else if(input.equals("save")){
 			game.save();
@@ -42,13 +44,11 @@ public class Sudoku_Main {
 			System.out.println("Your response was not one of the availible choices");
 			user_choice();
 		}
-		scanner.close();
 	}
 		
 
 	public static void menu() throws FileNotFoundException {
 		System.out.println("Welcome, type 'play' and press enter to play a game");
-		Scanner scanner = new Scanner(System.in);
 		String input = scanner.nextLine();
 		if (input.equals("play")) {
 			start_game();
