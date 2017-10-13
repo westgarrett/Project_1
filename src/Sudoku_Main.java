@@ -23,6 +23,15 @@ public class Sudoku_Main {
 			game.print_board();
 			System.out.println("\nEnter 'change' to change an entry, 'clear' to clear the board of all of the entries, 'end' to end the game and start a new one, 'save' to save the game, and 'exit' to exit the game");
 			user_choice();
+			win = game.win();
+		}
+		System.out.println("Congradulations, you have won!");
+		System.out.println("Play Again: 'Yes' or 'No'");
+		String input = scanner.nextLine();
+		if(input.equals("Yes")){
+			start_game();
+		}else{
+			menu();
 		}
 	}
 
