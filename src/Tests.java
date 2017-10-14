@@ -15,7 +15,7 @@ public class Tests {
 
 
 	public static void main(String[] args) throws IOException {
-		create_sudoku_class_no_input_tests();
+//		create_sudoku_class_no_input_tests();
 		create_sudoku_class_with_input_tests();
 		print_board_tests();
 		validate_3x3_area_tests();
@@ -25,6 +25,29 @@ public class Tests {
 		save_tests();
 		clear_save_tests();
 		win_tests();
+		create_board_tests();
+	}
+	
+	
+	public static void create_board_tests() throws FileNotFoundException{
+		Sudoku_Class.clear_save();
+		Sudoku_Class game = new Sudoku_Class();
+		int[][] answer = game.get_answer_board();
+		game = new Sudoku_Class(answer);
+		int[][] val_board = game.validBoard();
+		boolean val = true;
+		for(int i = 0; i < val_board.length; i++){
+			for(int j = 0; j < val_board[i].length; j++){
+				if(val_board[i][j] == -1){
+					val = false;
+				}
+			}
+		}
+		if(val){
+			System.out.println("create_board() test1 worked");
+		}else{
+			System.out.println("create_board() test1 failed");
+		}
 	}
 	
 	public static void win_tests() throws FileNotFoundException{
@@ -201,7 +224,7 @@ public class Tests {
 		}
 		
 		//Test2 has a permanent space
-		expected = "[5] | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0";
+		expected = "[5]| 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0";
 		input[0][0] = -5;
 		game = new Sudoku_Class(input);
 		game.clear_entries();
@@ -326,7 +349,7 @@ public class Tests {
 		}
 		
 		input[0][0] = -5;
-		expected = "[5] | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0";
+		expected = "[5]| 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0";
 		game = new Sudoku_Class(input);
 		output = game.convert_board_to_string();
 		if(expected.equals(output)){
