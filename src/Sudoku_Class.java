@@ -37,10 +37,10 @@ public class Sudoku_Class {
 	public void create_board(){
 		board = new int[9][9];
 		//Create HashSet 2D array with ints 1-9
-		HashSet<Integer>[][] choices = new HashSet[9][9];
+		ArrayList<Integer>[][] choices = new ArrayList[9][9];
 		for(int i = 0; i < choices.length; i++){
 			for(int j = 0; j < choices[i].length; j++){
-				choices[i][j] = new HashSet<Integer>();
+				choices[i][j] = new ArrayList<Integer>();
 				for(int k = 1; k <= 9; k++){
 					choices[i][j].add(k);
 				}
@@ -63,26 +63,11 @@ public class Sudoku_Class {
 //		return board;
 	}
 	
-	private void board_filler(int row, int col, HashSet<Integer>[][] choices, boolean back){
+	private void board_filler(int row, int col, ArrayList<Integer>[][] choices, boolean back){
 		Random random_number = new Random();
 		boolean valid = false;
 		while(!valid){
-			int num = random_number.nextInt(10);
-			while(!choices[row][col].contains(num)){
-				num = random_number.nextInt(10);
-			}
-			board[row][col] = num;
-			int[][] test = validBoard();
-			valid = true;
-			for(int i = 0; i < test.length; i++){
-				for(int j = 0; j < test[i].length; j++){
-					if(test[i][j] == 1){
-						valid = false;
-						choices[row][col].remove(num);
-					}
-				}
-			}
-			if(choices[row][col].isEmpty()){
+			if(choices[row][col].size() <= 0){
 				board[row][col] = 0;
 				for(int k = 1; k <= 9; k++){
 					choices[row][col].add(k);
@@ -92,9 +77,44 @@ public class Sudoku_Class {
 					row--;
 					col = 8;
 				}
-				choices[row][col].remove(board[row][col]);
+				int pos = choices[row][col].indexOf(board[row][col]);
+				choices[row][col].remove(pos);
 				board_filler(row, col, choices, true);
-//				System.out.println(back);
+				back = false;
+				valid = true;
+			}
+			int num = random_number.nextInt(choices[row][col].size());
+			int element = choices[row][col].get(num);
+			board[row][col] = element;
+			int[][] test = validBoard();
+			valid = true;
+			boolean removed = false;
+			for(int i = 0; i <= row; i++){
+				for(int j = 0; j <= col; j++){
+					if(test[i][j] == 1){
+						if(!removed){
+							valid = false;
+							int pos = choices[row][col].indexOf(board[row][col]);
+							choices[row][col].remove(pos);
+							removed = true;
+						}
+						
+					}
+				}
+			}
+			if(choices[row][col].size() <= 0){
+				board[row][col] = 0;
+				for(int k = 1; k <= 9; k++){
+					choices[row][col].add(k);
+				}
+				col--;
+				if(col < 0){
+					row--;
+					col = 8;
+				}
+				int pos = choices[row][col].indexOf(board[row][col]);
+				choices[row][col].remove(pos);
+				board_filler(row, col, choices, true);
 				back = false;
 				valid = true;
 			}
