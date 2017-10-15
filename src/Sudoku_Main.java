@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Sudoku_Main {
 	private static Sudoku_Class game;
 	private static Scanner scanner;
+	private static boolean exit;
 	
 	public static void main(String[] args) throws FileNotFoundException {
 		scanner = new Scanner(System.in);
@@ -20,19 +21,22 @@ public class Sudoku_Main {
 		System.out.println("Let the game begin");
 		game = new Sudoku_Class();
 		boolean win = false;
-		while (!win) {
+		exit = false;
+		while (!win && !exit) {
 			game.print_board();
 			System.out.println("\nEnter 'change' to change an entry, 'clear' to clear the board of all of the entries, 'end' to end the game and start a new one, 'save' to save the game, and 'exit' to exit the game");
 			user_choice();
 			win = game.win();
 		}
-		System.out.println("Congradulations, you have won!");
-		System.out.println("Play Again: 'Yes' or 'No'");
-		String input = scanner.nextLine();
-		if(input.equals("Yes")){
-			start_game();
-		}else{
-			menu();
+		if(win){
+			System.out.println("Congradulations, you have won!");
+			System.out.println("Play Again: 'Yes' or 'No'");
+			String input = scanner.nextLine();
+			if(input.equals("Yes")){
+				start_game();
+			}else{
+				menu();
+			}
 		}
 	}
 
@@ -89,12 +93,11 @@ public class Sudoku_Main {
                 System.out.println("Invalid! Please try again.");
             }
 		}else if(input.equals("clear")){
-			//make sure it works once user can enter their choices
 			game.clear_entries();
 		}else if(input.equals("save")){
 			game.save();
 		}else if(input.equals("exit")){
-			menu();
+			exit = true;
 		}else if(input.equals("end")){
 			game.clear_save();
 			start_game();

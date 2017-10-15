@@ -7,7 +7,7 @@ import java.io.PrintWriter;
 import static org.junit.Assert.*;
 
 
-public class Tests {
+public class Sudoku_Tests {
 	
 	@Test
 	public void create_board_tests() throws FileNotFoundException{
