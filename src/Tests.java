@@ -2,34 +2,15 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Arrays;
-
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 
 public class Tests {
-
-
-	public static void main(String[] args) throws IOException {
-//		create_sudoku_class_no_input_tests();
-		create_sudoku_class_with_input_tests();
-		print_board_tests();
-		validate_3x3_area_tests();
-		is_permanent_square_tests();
-		clear_entries_tests();
-		read_file_tests();
-		save_tests();
-		clear_save_tests();
-		win_tests();
-		create_board_tests();
-	}
 	
-	
-	public static void create_board_tests() throws FileNotFoundException{
+	@Test
+	public void create_board_tests() throws FileNotFoundException{
 		Sudoku_Class.clear_save();
 		Sudoku_Class game = new Sudoku_Class();
 		int[][] answer = game.get_answer_board();
@@ -43,40 +24,26 @@ public class Tests {
 				}
 			}
 		}
-		if(val){
-			System.out.println("create_board() test1 worked");
-		}else{
-			System.out.println("create_board() test1 failed");
-		}
+		assertTrue(val);
 	}
 	
-	public static void win_tests() throws FileNotFoundException{
+	@Test
+	public void win_tests() throws FileNotFoundException{
 		int[][] input = {{5,3,4,6,7,8,9,1,2},{6,7,2,1,9,5,3,4,8},{1,9,8,3,4,2,5,6,7},{8,5,9,7,6,1,4,2,3},{4,2,6,8,5,3,7,9,1},{7,1,3,9,2,4,8,5,6},{9,6,1,5,3,7,2,8,4},{2,8,7,4,1,9,6,3,5},{3,4,5,2,8,6,1,7,9}};
 		Sudoku_Class game = new Sudoku_Class(input);
 		boolean expected = true;
 		boolean output = game.win();
-		if(expected == output){
-			System.out.println("win() test1 worked");
-		}else{
-			System.out.println("win() test1 failed");
-			System.out.println("Expected: \n" + expected);
-			System.out.println("Output: \n" + output);
-		}
+		assertEquals(expected, output);
 		
 		expected = false;
 		input[0][0] = 1;
 		game = new Sudoku_Class(input);
 		output = game.win();
-		if(expected == output){
-			System.out.println("win() test2 worked");
-		}else{
-			System.out.println("win() test2 failed");
-			System.out.println("Expected: \n" + expected);
-			System.out.println("Output: \n" + output);
-		}
+		assertEquals(expected, output);
 	}
 	
-	public static void clear_save_tests() throws FileNotFoundException{
+	@Test
+	public void clear_save_tests() throws FileNotFoundException{
 		//test1 uses all 1's
 		int[][] input = new int[9][9];
 		for(int i = 0; i < input.length; i++){
@@ -90,13 +57,7 @@ public class Tests {
 		File f = new File("save_file.txt");
 		int[][] output = game.read_file(f);
 		int[][] expected = new int[9][9];
-		if(Arrays.deepEquals(expected, output)){
-			System.out.println("clear_save() test1 worked");
-		}else{
-			System.out.println("clear_save() test1 failed");
-			System.out.println("Expected: \n" + expected);
-			System.out.println("Output: \n" + output);
-		}
+		assertArrayEquals(expected, output);
 		
 		//test2 has permanent squares,i.e. negative numbers
 		input[8][8] = -1;
@@ -104,16 +65,11 @@ public class Tests {
 		game.save();
 		game.clear_save();
 		output = game.read_file(f);
-		if(Arrays.deepEquals(expected, output)){
-			System.out.println("clear_save() test2 worked");
-		}else{
-			System.out.println("clear_save() test2 failed");
-			System.out.println("Expected: \n" + input);
-			System.out.println("Output: \n" + output);
-		}
+		assertArrayEquals(expected, output);
 	}
 	
-	public static void save_tests() throws FileNotFoundException{
+	@Test
+	public void save_tests() throws FileNotFoundException{
 		//test1 uses all 1's
 		int[][] input = new int[9][9];
 		for(int i = 0; i < input.length; i++){
@@ -125,29 +81,18 @@ public class Tests {
 		game.save();
 		File f = new File("save_file.txt");
 		int[][] output = game.read_file(f);
-		if(Arrays.deepEquals(input, output)){
-			System.out.println("save() test1 worked");
-		}else{
-			System.out.println("save() test1 failed");
-			System.out.println("Expected: \n" + input);
-			System.out.println("Output: \n" + output);
-		}
+		assertArrayEquals(input, output);
 		
 		//test2 has permanent squares,i.e. negative numbers
 		input[8][8] = -1;
 		game = new Sudoku_Class(input);
 		game.save();
 		output = game.read_file(f);
-		if(Arrays.deepEquals(input, output)){
-			System.out.println("save() test2 worked");
-		}else{
-			System.out.println("save() test2 failed");
-			System.out.println("Expected: \n" + input);
-			System.out.println("Output: \n" + output);
-		}
+		assertArrayEquals(input, output);
 	}
 	
-	public static void read_file_tests() throws IOException{
+	@Test
+	public void read_file_tests() throws IOException{
 		File f = new File("test_file.txt");
 		PrintWriter write = new PrintWriter(f);
 		write.close();
@@ -156,13 +101,7 @@ public class Tests {
 		int[][] expected = new int[9][9];
 		f = new File("test_file.txt");
 		int[][] output = Sudoku_Class.read_file(f);
-		if(Arrays.deepEquals(expected, output)){
-			System.out.println("read_file() test1 worked");
-		}else{
-			System.out.println("read_file() test1 failed");
-			System.out.println("Expected: \n" + expected);
-			System.out.println("Output: \n" + output);
-		}
+		assertArrayEquals(expected, output);
 		
 		//test2 has a file with all 1's
 		f = new File("test_file.txt");
@@ -177,13 +116,7 @@ public class Tests {
 		}
 		write.close();
 		output = Sudoku_Class.read_file(f);
-		if(Arrays.deepEquals(expected, output)){
-			System.out.println("read_file() test2 worked");
-		}else{
-			System.out.println("read_file() test2 failed");
-			System.out.println("Expected: \n" + expected);
-			System.out.println("Output: \n" + output);
-		}
+		assertArrayEquals(expected, output);
 		
 		
 		
@@ -196,32 +129,22 @@ public class Tests {
 		write.print("-1 ");
 		write.close();
 		output = Sudoku_Class.read_file(f);
-		if(Arrays.deepEquals(expected, output)){
-			System.out.println("read_file() test3 worked");
-		}else{
-			System.out.println("read_file() test3 failed");
-			System.out.println("Expected: \n" + expected);
-			System.out.println("Output: \n" + output);
-		}
+		assertArrayEquals(expected, output);
 		
 		write = new PrintWriter(f);
 		write.close();
 	}
 	
-	public static void clear_entries_tests(){
+	
+	@Test
+	public void clear_entries_tests(){
 		//Test 1 has no permanent spaces
 		String expected = "0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0";
 		int[][] input = {{5,3,4,6,7,8,9,1,2},{6,7,2,1,9,5,3,4,8},{1,9,8,3,4,2,5,6,7},{8,5,9,7,6,1,4,2,3},{4,2,6,8,5,3,4,9,1},{7,1,3,9,2,4,8,5,6},{9,6,1,5,3,7,2,8,4},{2,8,7,4,1,9,6,3,5},{3,4,5,2,8,6,1,7,9}};
 		Sudoku_Class game = new Sudoku_Class(input);
 		game.clear_entries();
 		String output = game.convert_board_to_string();
-		if(expected.equals(output)){
-			System.out.println("clear_entries() test1 worked");
-		}else{
-			System.out.println("clear_entries() test1 failed");
-			System.out.println("Expected: \n" + expected);
-			System.out.println("Output: \n" + output);
-		}
+		assertEquals(expected, output);
 		
 		//Test2 has a permanent space
 		expected = "[5]| 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0";
@@ -229,54 +152,32 @@ public class Tests {
 		game = new Sudoku_Class(input);
 		game.clear_entries();
 		output = game.convert_board_to_string();
-		if(expected.equals(output)){
-			System.out.println("clear_entries() test2 worked");
-		}else{
-			System.out.println("clear_entries() test2 failed");
-			System.out.println("Expected: \n" + expected);
-			System.out.println("Output: \n" + output);
-		}
+		assertEquals(expected, output);
 	}
 	
-	public static void is_permanent_square_tests(){
+	@Test
+	public void is_permanent_square_tests(){
 		boolean expected = false;
 		int[][] input = {{5,3,4,6,7,8,9,1,2},{6,7,2,1,9,5,3,4,8},{1,9,8,3,4,2,5,6,7},{8,5,9,7,6,1,4,2,3},{4,2,6,8,5,3,4,9,1},{7,1,3,9,2,4,8,5,6},{9,6,1,5,3,7,2,8,4},{2,8,7,4,1,9,6,3,5},{3,4,5,2,8,6,1,7,9}};
 		Sudoku_Class game = new Sudoku_Class(input);
 		boolean output = game.is_permanent_square(0, 0);
-		if(expected == output){
-			System.out.println("is_permanent_square() test1 worked");
-		}else{
-			System.out.println("is_permanent_square() test1 failed");
-			System.out.println("Expected: \n" + expected);
-			System.out.println("Output: \n" + output);
-		}
+		assertEquals(expected, output);
 		
 		input[0][0] = -5;
 		expected = true;
 		game = new Sudoku_Class(input);
 		output = game.is_permanent_square(0, 0);
-		if(expected == output){
-			System.out.println("is_permanent_square() test2 worked");
-		}else{
-			System.out.println("is_permanent_square() test2 failed");
-			System.out.println("Expected: \n" + expected);
-			System.out.println("Output: \n" + output);
-		}
+		assertEquals(expected, output);
 	}
 	
-	public static void validate_3x3_area_tests(){
+	@Test
+	public void validate_3x3_area_tests(){
 		//test1 checks using a correct sudoku board
 		int[][] expected = {{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0}};
 		int[][] input = {{5,3,4,6,7,8,9,1,2},{6,7,2,1,9,5,3,4,8},{1,9,8,3,4,2,5,6,7},{8,5,9,7,6,1,4,2,3},{4,2,6,8,5,3,7,9,1},{7,1,3,9,2,4,8,5,6},{9,6,1,5,3,7,2,8,4},{2,8,7,4,1,9,6,3,5},{3,4,5,2,8,6,1,7,9}};
 		Sudoku_Class game = new Sudoku_Class(input);
 		int[][] output = game.validate_3x3_area();
-		if(Arrays.deepEquals(expected, output)){
-			System.out.println("validate_3x3_area() test1 worked");
-		}else{
-			System.out.println("validate_3x3_area() test1 failed");
-			System.out.println("Expected: \n" + expected);
-			System.out.println("Output: \n" + output);
-		}
+		assertArrayEquals(expected, output);
 		
 		//test2 checks using an incorrect sudoku board
 		expected[0][0] = 1;
@@ -284,84 +185,54 @@ public class Tests {
 		input[0][0] = 1;
 		game = new Sudoku_Class(input);
 		output = game.validate_3x3_area();
-		if(Arrays.deepEquals(expected, output)){
-			System.out.println("validate_3x3_area() test2 worked");
-		}else{
-			System.out.println("validate_3x3_area() test2 failed");
-			System.out.println("Expected: \n" + expected);
-			System.out.println("Output: \n" + output);
-		}
+		assertArrayEquals(expected, output);
 		
 		//test3 checks using a board with a permanent square
 		input[0][0] = -1;
 		game = new Sudoku_Class(input);
 		output = game.validate_3x3_area();
-		if(Arrays.deepEquals(expected, output)){
-			System.out.println("validate_3x3_area() test3 worked");
-		}else{
-			System.out.println("validate_3x3_area() test3 failed");
-			System.out.println("Expected: \n" + expected);
-			System.out.println("Output: \n" + output);
-		}
+		assertArrayEquals(expected, output);
 		
 	}
 
-	
-	public static void create_sudoku_class_with_input_tests(){
+	@Test
+	public void create_sudoku_class_with_input_tests(){
 		int[][] expected = {{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0}};;
 		int[][] input = {{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0}};
 		Sudoku_Class game = new Sudoku_Class(input);
 		int[][] output = game.get_board();
-		if(Arrays.deepEquals(expected, output)){
-			System.out.println("sudoku_class(input) worked");
-		}else{
-			System.out.println("sudoku_class(input) failed");
-			System.out.println("Expected: \n" + expected);
-			System.out.println("Output: \n" + output);
-		}
+		assertArrayEquals(expected, output);
 
 	}
 	
-	public static void create_sudoku_class_no_input_tests() throws FileNotFoundException{
-		int[][] expected = new int[9][9];
-		Sudoku_Class game = new Sudoku_Class();
-		int[][] output = game.get_board();
-		if(Arrays.deepEquals(expected, output)){
-			System.out.println("sudoku_class() worked");
-		}else{
-			System.out.println("sudoku_class() failed");
-			System.out.println("Expected: \n" + expected);
-			System.out.println("Output: \n" + output);
-		}
-	}
+//	public static void create_sudoku_class_no_input_tests() throws FileNotFoundException{
+//		int[][] expected = new int[9][9];
+//		Sudoku_Class game = new Sudoku_Class();
+//		int[][] output = game.get_board();
+//		if(Arrays.deepEquals(expected, output)){
+//			System.out.println("sudoku_class() worked");
+//		}else{
+//			System.out.println("sudoku_class() failed");
+//			System.out.println("Expected: \n" + expected);
+//			System.out.println("Output: \n" + output);
+//		}
+//	}
 	
-	public static void print_board_tests(){
+	@Test
+	public void print_board_tests(){
 		String expected = "0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0";
 		int[][] input = {{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0,0}};
 		Sudoku_Class game = new Sudoku_Class(input);
 		String output = game.convert_board_to_string();
-		if(expected.equals(output)){
-			System.out.println("convert_board_to_string() test1 worked");
-		}else{
-			System.out.println("convert_board_to_string() test1 failed");
-			System.out.println("Expected: \n" + expected);
-			System.out.println("Output: \n" + output);
-		}
+		assertEquals(expected, output);
 		
 		input[0][0] = -5;
 		expected = "[5]| 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0\n0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0";
 		game = new Sudoku_Class(input);
 		output = game.convert_board_to_string();
-		if(expected.equals(output)){
-			System.out.println("convert_board_to_string() test2 worked");
-		}else{
-			System.out.println("convert_board_to_string() test2 failed");
-			System.out.println("Expected: \n" + expected);
-			System.out.println("Output: \n" + output);
-		}
+		assertEquals(expected, output);
 	}
 
-    // Tests by Hoang
     @Test
     public void testValidAllRowsAndCols0() {
         int[][] testBoard = new int[9][9];

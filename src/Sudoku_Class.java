@@ -2,8 +2,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -361,7 +359,6 @@ public class Sudoku_Class {
 		return string_board;
 	}
 
-    // Methods by Hoang
 	int[][] validAllRowsAndCols() {
 		int[][] ans = new int[9][9];
 		for (int i = 0; i < 9; i++) {
