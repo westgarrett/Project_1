@@ -1,0 +1,50 @@
+    // if tile is open
+    if (status.equals("play") && tiles[r][c] == 0)
+    {
+      if (mines[r][c] == 0)
+      {
+        return ' ';
+      }
+      return (char)(mines[r][c]); // possible conversion issue (fixed it i think)
+    }
+
+    // if tile is closed
+    else if (status.equals("play") && tiles[r][c] == 1)
+    {
+      return 'X';
+    }
+
+    // if tile is marked with question
+    else if (status.equals("play") && tiles[r][c] == 2)
+    {
+      return '?';
+    }
+
+    // if tile is flagged as a mine
+    else if (status.equals("play") && tiles[r][c] == 3)
+    {
+      return '*';
+    }
+
+    // if tiles was incorrectly flagged
+    else if (status.equals("lose") && tiles[r][c] == 3 && mines[r][c] != 9)
+    {
+      return '-';
+    }
+
+    // tile that ended the game, tile is open and mine is 9
+    else if (status.equals("lose") && tiles[r][c] == 0 && mines[r][c] == 9)
+    {
+      return '!';
+    }
+    else if (status.equals("win") && mines[r][c] == 9)
+    {
+      return 'F';
+    }
+	
+    // this is just an else filler statement
+    else
+    {
+       return ' ';
+    }
+  }
