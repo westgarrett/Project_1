@@ -1,26 +1,3 @@
-/*
-  File: TestMineSweeper.java
-
-  Description: This program plays minesweeper.
-
-  Student Name: Justin Liu
-
-  Student UT EID: jll4234
-
-  Partner's Name: Kevin Yang
-
-  Partner's UT EID: ky4329
-
-  Course Name: CS 312
-
-  Unique Numbers: 87525
-
-  Date Created: August 10th, 2016
-
-  Date Last Modified: August 15th, 2016
-
-*/
-
 class minesweeper
 {
   // 0-8 are clue values (how many mines are surrouding this tile), 9 is a mine
@@ -51,11 +28,13 @@ class minesweeper
     return this.status;
   }
   
+  // returns number of rows
   public int getRows ()
   {
     return this.mines.length;
   }
-
+  
+  // returns number of columns
   public int getCols ()
   {
     return this.mines[0].length;
@@ -92,16 +71,20 @@ class minesweeper
       return -1;
     }
   }
-
+  
+  // digs up tiles and calculates what happens next
   public void markTile (int r, int c, int t)
   {
+    // if the index is valid and the status is play
     if((validIndex(r, c)) && (status.equals("play"))) 
     {
       switch (t)
       {
       case 0: 
+        // if the tiles are not dug up and not flagged, ie if tiles are clean or questioned
         if((tiles[r][c] != 0) && (tiles[r][c] != 3))
         {
+          // set state of tile to dug up
           tiles[r][c] = 0;
           if (gameWon())
           {
@@ -111,6 +94,7 @@ class minesweeper
           {
             status = "lose";
           }
+          // if the mine board int is 0, recursion the surrounding 8 tiles until the mine board int isn't 0
           else if (mines[r][c] == 0)
           {
             markTile(r - 1, c - 1, 0);
