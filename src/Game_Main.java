@@ -16,7 +16,7 @@ public class Game_Main {
 				Sudoku_Main.main(args);
 			}else if(input.equals("Minesweeper")){
 				//Replace with reference to minesweeper
-				System.out.println("Minesweeper");
+				minesweeperGUI game = new minesweeperGUI();
 			}else{
 				System.out.println("Your choice was not valid. Please try again.");
 			}
