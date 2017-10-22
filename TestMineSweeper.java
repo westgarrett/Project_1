@@ -419,25 +419,32 @@ public class TestMineSweeper
 {
   public static void main (String [] args)
   {
+  	// this is the unit test board
     minesweeper game = new minesweeper (2, 5);
-
+    
+    System.out.println("the first board printed out will be the mines board, IE the board with integers 0-9, with 9 being a mine and all other integers being clues");
     System.out.println (game.toStringMines());
+
+    System.out.println("the second board printed will be the tiles board, because no tiles are flipped with all start at 1");
     System.out.println (game.toStringTiles());
+
+    System.out.println("This is the game board that the user will see, the UI converts this into respective png files");
     System.out.println (game.toStringBoard());
 
+    System.out.println("Digging up tile in upper left corner");
     game.markTile (0, 0, 0);
-
-    game.markTile (0, 1, 2);
-    
-    game.markTile (0, 2, 3);
-
     System.out.println (game.toStringTiles());
- 
+    System.out.println (game.toStringBoard());
+
+    System.out.println("Flagging tile at location (0,1)");
+    game.markTile (0, 1, 2);
+    System.out.println (game.toStringTiles());
     System.out.println (game.toStringBoard());
     
-
-
-
+    System.out.println("Questioning tile at location (0,2)");
+    game.markTile (0, 2, 3);
+    System.out.println (game.toStringTiles());
+    System.out.println (game.toStringBoard());
 
 
   }
