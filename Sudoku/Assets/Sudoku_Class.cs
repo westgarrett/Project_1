@@ -11,12 +11,7 @@ public class Sudoku_Class : MonoBehaviour {
     private int[,] answer_board;
 
     // Use this for initialization
-    //void Start () {
-		
-	//}
-
-	public Sudoku_Class()
-    {
+    void Start () {
         // File f = new File("save_file.txt");
         string path = @"save_file.txt";
         board = read_file(path);
@@ -36,12 +31,6 @@ public class Sudoku_Class : MonoBehaviour {
 
             create_board();
         }
-    }
-
-    //Creates a board based on an input
-    public Sudoku_Class(int[,] input)
-    {
-        board = input;
     }
 
 	// Update is called once per frame

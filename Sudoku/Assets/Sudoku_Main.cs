@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class Sudoku_Main : MonoBehaviour {
 
-    private static Sudoku_Class game;
+    public Sudoku_Class game;
     //private static Scanner scanner;
     private static bool exit;
     public Text txt;
@@ -17,6 +17,7 @@ public class Sudoku_Main : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        Debug.Break();
         //scanner = new Scanner(System.in);
         //txt.text = "Hello";
         //menu();
@@ -32,9 +33,10 @@ public class Sudoku_Main : MonoBehaviour {
             txt.text = "Welcome to Sudoku\nTo win the game you must fill each space with a number between 1-9\nEach row, column, and 3x3 section may only contain one of each number 1-9\nIf a number does not follow the rules then it will...\nIf a number is between brackets that means it is a permanent space and you can not change it\nLet the game begin";
             Debug.Log("Passed welcome");
             first = false;
+            //game = new Sudoku_Class();
         }
-        //game = gameObject.AddComponent<Sudoku_Class>();
-        game = new Sudoku_Class();
+        //game = GameObject.AddComponent<Sudoku_Class>();
+       
         exit = false;
         if (!win && !exit)
         {
