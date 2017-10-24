@@ -3,22 +3,31 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Sudoku_Class : MonoBehaviour {
 
     //Main board
-    private int[,] board = new int[9, 9];
+    public int[,] board = new int[9,9];
     private int[,] answer_board;
+    public Text txt;
+    public Text message;
+    private bool change = false;
+    public InputField first_int;
+    public InputField second_int;
+    public InputField third_int;
+    public bool error = false;
 
     // Use this for initialization
     void Start () {
-        // File f = new File("save_file.txt");
+        //Debug.Log("Class Start Called");
         string path = @"save_file.txt";
         board = read_file(path);
         int zero_count = 0;
-        for (int i = 0; i < board.Length; i++)
+        
+        for (int i = 0; i < board.GetLength(0); i++)
         {
-            for (int j = 0; j < board.GetLength(i); j++)
+            for (int j = 0; j < board.GetLength(1); j++)
             {
                 if (board[i, j] == 0)
                 {
@@ -34,21 +43,28 @@ public class Sudoku_Class : MonoBehaviour {
     }
 
 	// Update is called once per frame
-	//void Update () {
-		
-	//}
+	void Update () {
+        //Debug.Log("Class Update Called");
+        string string_board = convert_board_to_string();
+        txt.text = string_board;
+        if (error)
+        {
+            message.text = "Please use only 1-9 and integers";
+        }
+        else {
+            message.text = "";
+        }
+        
+    }
 
     //Creates a new board
-    
-
     public void create_board()
     {
         board = new int[9, 9];
-        //Create HashSet 2D array with ints 1-9
         ArrayList[,] choices = new ArrayList[9, 9];
-        for (int i = 0; i < choices.Length; i++)
+        for (int i = 0; i < choices.GetLength(0); i++)
         {
-            for (int j = 0; j < choices.GetLength(i); j++)
+            for (int j = 0; j < choices.GetLength(1); j++)
             {
                 choices[i, j] = new ArrayList();
                 for (int k = 1; k <= 9; k++)
@@ -59,21 +75,20 @@ public class Sudoku_Class : MonoBehaviour {
         }
         board_filler(0, 0, choices, false);
         answer_board = new int[9, 9];
-        //answer_board = board.Clone();
-        for (int i = 0; i < board.Length; i++)
+        for (int i = 0; i < board.GetLength(0); i++)
         {
-            for (int j = 0; j < board.GetLength(i); i++)
+            for (int j = 0; j < board.GetLength(1); j++)
             {
                 answer_board[i, j] = board[i, j];
             }
         }
         board = new int[9, 9];
         System.Random prob = new System.Random();
-        for (int i = 0; i < board.Length; i++)
+        for (int i = 0; i < board.GetLength(0); i++)
         {
-            for (int j = 0; j < board.GetLength(i); j++)
+            for (int j = 0; j < board.GetLength(1); j++)
             {
-                int chosen_num = prob.Next(10);
+                int chosen_num = prob.Next(4);
                 if (chosen_num == 0)
                 {
                     answer_board[i, j] = 0 - answer_board[i, j];
@@ -81,7 +96,6 @@ public class Sudoku_Class : MonoBehaviour {
                 }
             }
         }
-        //		return board;
     }
 
     private void board_filler(int row, int col, ArrayList[,] choices, bool back)
@@ -103,8 +117,7 @@ public class Sudoku_Class : MonoBehaviour {
                     row--;
                     col = 8;
                 }
-                int pos = choices[row, col].IndexOf(board[row, col]);
-                choices[row, col].Remove(pos);
+                choices[row, col].Remove(board[row, col]);
                 board_filler(row, col, choices, true);
                 back = false;
                 valid = true;
@@ -112,7 +125,7 @@ public class Sudoku_Class : MonoBehaviour {
             int num = random_number.Next(choices[row, col].Count);
             int element = Convert.ToInt32(choices[row, col][num]);
             board[row, col] = element;
-            int[,] test = validBoard();
+            int[,] test = Validate();
             valid = true;
             bool removed = false;
             for (int i = 0; i <= row; i++)
@@ -124,8 +137,7 @@ public class Sudoku_Class : MonoBehaviour {
                         if (!removed)
                         {
                             valid = false;
-                            int pos = choices[row, col].IndexOf(board[row, col]);
-                            choices[row, col].Remove(pos);
+                            choices[row, col].Remove(board[row, col]);
                             removed = true;
                         }
 
@@ -145,8 +157,7 @@ public class Sudoku_Class : MonoBehaviour {
                     row--;
                     col = 8;
                 }
-                int pos = choices[row, col].IndexOf(board[row, col]);
-                choices[row, col].Remove(pos);
+                choices[row, col].Remove(board[row, col]);
                 board_filler(row, col, choices, true);
                 back = false;
                 valid = true;
@@ -171,40 +182,9 @@ public class Sudoku_Class : MonoBehaviour {
     {
         return answer_board;
     }
-
-    public bool win()
-    {
-        bool return_value = true;
-        int[,] valid_array = validBoard();
-        for (int i = 0; i < board.Length; i++)
-        {
-            for (int j = 0; j < valid_array.GetLength(i); j++)
-            {
-                if (board[i, j] == 0)
-                {
-                    return_value = false;
-                }
-            }
-        }
-        if (return_value)
-        {
-            for (int i = 0; i < valid_array.Length; i++)
-            {
-                for (int j = 0; j < valid_array.GetLength(i); j++)
-                {
-                    if (valid_array[i, j] != 0)
-                    {
-                        return_value = false;
-                    }
-                }
-            }
-        }
-        return return_value;
-    }
-
+    
     public void clear_save()
     {
-        //File f = new File("save_file.txt");
         string path = @"save_file.txt";
         StreamWriter write = new StreamWriter(path);
         write.Close();
@@ -212,12 +192,11 @@ public class Sudoku_Class : MonoBehaviour {
 
     public void save()
     {
-        //File f = new File("save_file.txt");
         string path = @"save_file.txt";
         StreamWriter write = new StreamWriter(path);
-        for (int i = 0; i < board.Length; i++)
+        for (int i = 0; i < board.GetLength(0); i++)
         {
-            for (int j = 0; j < board.GetLength(i); j++)
+            for (int j = 0; j < board.GetLength(1); j++)
             {
                 write.Write(board[i, j] + " ");
             }
@@ -228,35 +207,39 @@ public class Sudoku_Class : MonoBehaviour {
     public static int[,] read_file(string path)
     {
         int[,] return_array = new int[9, 9];
-        //File file = file_name;
-        //Scanner file_scanner = new Scanner(file);
         StreamReader reader = new StreamReader(path);
         int row = 0;
         int column = 0;
         string line;
         line = reader.ReadLine();
+        //Debug.Log(line);
         bool stop = false;
         if (line == null)
         {
             stop = true;
         }
-        while (stop || line.Equals(""))
+        else
         {
-            //string a = reader.next();
-            int b = Convert.ToInt32(line);
-            if (row < 9)
+            string[] a = line.Split(' ');
+            int count = 0;
+            while (!stop && a[count] != null && !a[count].Equals(""))
             {
-                return_array[row, column] = b;
-                column++;
-                if (column >= 9)
+                int b = Convert.ToInt32(a[count]);
+                if (row < 9)
                 {
-                    column = 0;
-                    row++;
+                    return_array[row, column] = b;
+                    column++;
+                    if (column >= 9)
+                    {
+                        column = 0;
+                        row++;
+                    }
                 }
-            }
-            if (line == null)
-            {
-                stop = true;
+                count++;
+                if (a[count] == null)
+                {
+                    stop = true;
+                }
             }
         }
         reader.Close();
@@ -265,9 +248,9 @@ public class Sudoku_Class : MonoBehaviour {
 
     public void clear_entries()
     {
-        for (int i = 0; i < board.Length; i++)
+        for (int i = 0; i < board.GetLength(0); i++)
         {
-            for (int j = 0; j < board.GetLength(i); j++)
+            for (int j = 0; j < board.GetLength(1); j++)
             {
                 if (board[i, j] > 0)
                 {
@@ -288,6 +271,132 @@ public class Sudoku_Class : MonoBehaviour {
             return false;
         }
     }
+    
+    //Returns the board in its array form
+    public int[,] get_board()
+    {
+        return board;
+    }
+
+    public void print_board()
+    {
+        //Calls method Convert_Board_To_string to make the board into a printable string
+        string string_board = convert_board_to_string();
+    }
+
+    public string convert_board_to_string()
+    {
+        //Start with empty string
+        string string_board = "";
+        //For every row
+        for (int i = 0; i < board.GetLength(0); i++)
+        {
+            //For every column
+            for (int j = 0; j < board.GetLength(1); j++)
+            {
+                //Adds integer from board at row and column specified
+                if (board[i, j] < 0)
+                {
+                    if (j != 0)
+                    {
+                        string_board = string_board.Trim();
+                    }
+                    string_board += "[";
+                    string_board += Math.Abs(board[i, j]);
+                    string_board += "]";
+                }
+                else
+                {
+                    string_board += board[i, j];
+                }
+                //If it is not at the last integer of the row then adds space|space
+                if (j < board.GetLength(1) - 1 && board[i, j] >= 0)
+                {
+                    string_board += " | ";
+                }
+                else if (board[i, j] < 0 && j < board.GetLength(1) - 1)
+                {
+                    string_board += "| ";
+                }
+            }
+            //If it is not the last row then it adds the new line character
+            if (i < board.Length - 1)
+            {
+                string_board += "\n";
+            }
+        }
+        return string_board;
+    }
+    
+    // Return true if the square is successfully set to new value, false otherwise
+    // No validation in this function.
+    public bool setSquare(int r, int c, int val)
+    {
+        if (r < 0 || c < 0 || r > 9 || c > 9)
+        {
+            error = true;
+            return false;
+        }
+        if (is_permanent_square(r, c) || val < 0 || val > 9)
+        {
+            error = true;
+            return false;
+        }
+
+        board[r, c] = val;
+        Debug.Log("changed");
+        return true;
+    }
+
+    public int[,] Validate() {
+        //Debug.Log("Validate Start Called");
+        int[,] res;
+        int[,] rowsAndCols = ValidAllRowsAndCols();
+        int[,] local3x3 = validate_3x3_area();
+        res = new int[9, 9];
+        for (int i = 0; i < 9; i++)
+        {
+            for (int j = 0; j < 9; j++)
+            {
+                res[i, j] = rowsAndCols[i, j] | local3x3[i, j];
+            }
+        }
+        return res;
+    }
+
+    int[,] ValidAllRowsAndCols()
+    {
+        
+        int[,] ans = new int[9, 9];
+        for (int i = 0; i < 9; i++)
+        {
+            for (int j = 0; j < 9; j++)
+            {
+                ans[i, j] = 0;
+                int val = Math.Abs(board[i, j]);
+                if (val != 0)
+                {
+                    // Check for row
+                    for (int k = 0; k < 9; k++)
+                    {
+                        if (k != j && val == Math.Abs(board[i, k]))
+                        {
+                            ans[i, j] = 1;
+                        }
+                    }
+                    // Check for col
+                    for (int k = 0; k < 9; k++)
+                    {
+                        if (k != i && val == Math.Abs(board[k, j]))
+                        {
+                            ans[i, j] = 1;
+                        }
+                    }
+                }
+            }
+        }
+        return ans;
+    }
 
     public int[,] validate_3x3_area()
     {
@@ -297,10 +406,10 @@ public class Sudoku_Class : MonoBehaviour {
                 { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
                 { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 } };
         //For every row
-        for (int i = 0; i < board.Length; i++)
+        for (int i = 0; i < board.GetLength(0); i++)
         {
             //For every column
-            for (int j = 0; j < board.GetLength(i); j++)
+            for (int j = 0; j < board.GetLength(1); j++)
             {
                 //Gets the value at the specified space
                 int value = board[i, j];
@@ -438,128 +547,49 @@ public class Sudoku_Class : MonoBehaviour {
         return return_array;
     }
 
-
-    //Returns the board in its array form
-    public int[,] get_board()
+    public void change_entry()
     {
-        return board;
-    }
-
-    public void print_board()
-    {
-        //Calls method Convert_Board_To_string to make the board into a printable string
-        string string_board = convert_board_to_string();
-        Console.WriteLine(string_board);
-    }
-
-    public string convert_board_to_string()
-    {
-        //Start with empty string
-        string string_board = "";
-        //For every row
-        for (int i = 0; i < board.Length; i++)
+        
+        Debug.Log("change entry");
+        change = false;
+        int row, col, val;
+        row = int.Parse(first_int.text);
+        col = Convert.ToInt32(second_int.text);
+        val = Convert.ToInt32(third_int.text);
+        Debug.Log(row);
+        Debug.Log(col);
+        Debug.Log(val);
+        if (0 <= row && row <= 9)
         {
-            //For every column
-            for (int j = 0; j < board.GetLength(i); j++)
+            if (0 <= col && col <= 9)
             {
-                //Adds integer from board at row and column specified
-                if (board[i, j] < 0)
+                if (0 <= val && val <= 9)
                 {
-                    if (j != 0)
-                    {
-                        string_board = string_board.Trim();
-                    }
-                    string_board += "[";
-                    string_board += Math.Abs(board[i, j]);
-                    string_board += "]";
+                    error = false;
+                    setSquare(row, col, val);
                 }
                 else
                 {
-                    string_board += board[i, j];
-                }
-                //If it is not at the last integer of the row then adds space|space
-                if (j < board.GetLength(i) - 1 && board[i, j] >= 0)
-                {
-                    string_board += " | ";
-                }
-                else if (board[i, j] < 0 && j < board.GetLength(i) - 1)
-                {
-                    string_board += "| ";
+                    error = true;
                 }
             }
-            //If it is not the last row then it adds the new line character
-            if (i < board.Length - 1)
+            else
             {
-                string_board += "\n";
+                error = true;
             }
         }
-        return string_board;
+        else
+        {
+            error = true;
+        }
     }
 
-    int[,] validAllRowsAndCols()
-    {
-        int[,] ans = new int[9, 9];
-        for (int i = 0; i < 9; i++)
-        {
-            for (int j = 0; j < 9; j++)
-            {
-                ans[i, j] = 0;
-                int val = Math.Abs(board[i, j]);
-                if (val != 0)
-                {
-                    // Check for row
-                    for (int k = 0; k < 9; k++)
-                    {
-                        if (k != j && val == Math.Abs(board[i, k]))
-                        {
-                            ans[i, j] = 1;
-                        }
-                    }
-                    // Check for col
-                    for (int k = 0; k < 9; k++)
-                    {
-                        if (k != i && val == Math.Abs(board[k, j]))
-                        {
-                            ans[i, j] = 1;
-                        }
-                    }
-                }
-            }
-        }
-        return ans;
+    public void end() {
+        clear_save();
+        Start();
     }
 
-
-    // Return 9x9 0/1 board denotes if a square is invalid or not.
-    int[,] validBoard()
-    {
-        int[,] rowsAndCols = validAllRowsAndCols();
-        int[,] local3x3 = validate_3x3_area();
-        int[,] res = new int[9, 9];
-        for (int i = 0; i < 9; i++)
-        {
-            for (int j = 0; j < 9; j++)
-            {
-                res[i, j] = rowsAndCols[i, j] | local3x3[i, j];
-            }
-        }
-        return res;
-    }
-
-    // Return true if the square is successfully set to new value, false otherwise
-    // No validation in this function.
-    public bool setSquare(int r, int c, int val)
-    {
-        if (r < 0 || c < 0 || r > 9 || c > 9)
-        {
-            return false;
-        }
-        if (is_permanent_square(r, c) || val < 0 || val > 9)
-        {
-            return false;
-        }
-
-        board[r, c] = val;
-        return true;
+    public void exit() {
+        //Go to main menu
     }
 }

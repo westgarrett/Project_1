@@ -37,3 +37,7 @@ D:\Documents\school\college\4th year\Fall\Software Engineering\Project 1\reposit
 D:\Documents\school\college\4th year\Fall\Software Engineering\Project 1\repository\Sudoku\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
 D:\Documents\school\college\4th year\Fall\Software Engineering\Project 1\repository\Sudoku\obj\Debug\Assembly-CSharp.dll
 D:\Documents\school\college\4th year\Fall\Software Engineering\Project 1\repository\Sudoku\obj\Debug\Assembly-CSharp.pdb
+D:\Documents\school\college\4th year\Fall\Software Engineering\Project 1\Sudoku\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
+D:\Documents\school\college\4th year\Fall\Software Engineering\Project 1\Sudoku\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
+D:\Documents\school\college\4th year\Fall\Software Engineering\Project 1\Sudoku\obj\Debug\Assembly-CSharp.dll
+D:\Documents\school\college\4th year\Fall\Software Engineering\Project 1\Sudoku\obj\Debug\Assembly-CSharp.pdb

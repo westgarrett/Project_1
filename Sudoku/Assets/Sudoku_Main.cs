@@ -5,213 +5,83 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Sudoku_Main : MonoBehaviour {
-
-    public Sudoku_Class game;
-    //private static Scanner scanner;
+    
     private static bool exit;
     public Text txt;
     public InputField input;
     public static string choice;
     private bool first;
-    private bool win;
+    public bool win {
+        get {
+            return w.return_value;
+        }
+    }
+    private Sudoku_Win w;
+    public int[,] board {
+        get {
+            return b.board;
+        }
+    }
+    private Sudoku_Class b;
+    private bool change = false;
+    public InputField first_int;
+    public InputField second_int;
+    public InputField third_int;
+
+    void Awake() {
+        b = gameObject.GetComponent<Sudoku_Class>();
+        w = gameObject.GetComponent<Sudoku_Win>();
+    }
 
     // Use this for initialization
     void Start () {
-        Debug.Break();
-        //scanner = new Scanner(System.in);
-        //txt.text = "Hello";
-        //menu();
+        //Debug.Log("Main Start Called");
         first = true;
-        win = false;
     }
 	
 	// Update is called once per frame
 	void Update () {
-
-        if (first)
-        {
-            txt.text = "Welcome to Sudoku\nTo win the game you must fill each space with a number between 1-9\nEach row, column, and 3x3 section may only contain one of each number 1-9\nIf a number does not follow the rules then it will...\nIf a number is between brackets that means it is a permanent space and you can not change it\nLet the game begin";
-            Debug.Log("Passed welcome");
-            first = false;
-            //game = new Sudoku_Class();
-        }
-        //game = GameObject.AddComponent<Sudoku_Class>();
-       
+        //Debug.Log("Main Update Called");
         exit = false;
         if (!win && !exit)
         {
-            game.print_board();
-            txt.text = "\nEnter 'change' to change an entry, 'clear' to clear the board of all of the entries, 'end' to end the game and start a new one, 'save' to save the game, and 'exit' to exit the game";
-            user_choice();
-            win = game.win();
+                txt.text = "\nPress 'change' to change an entry, 'clear' to clear the board of all of the entries, 'end' to end the game and start a new one, 'save' to save the game, and 'exit' to exit the game";
         }
         if (win)
         {
-            txt.text = "Congradulations, you have won!\nPlay Again: 'Yes' or 'No'";
-            string input = Console.ReadLine();
-            if (input.Equals("Yes"))
+            txt.text = "Congradulations, you have won!To Play Again Press End";
+        }
+    }
+    
+    public void change_entry() {
+        change = false;
+        int row, col, val;
+        row = Convert.ToInt32(first_int);
+        col = Convert.ToInt32(second_int);
+        val = Convert.ToInt32(third_int);
+        if (48 <= Convert.ToChar(row) && Convert.ToChar(row) <= 57)
+        {
+            if (48 <= Convert.ToChar(col) && Convert.ToChar(col) <= 57)
             {
-                Start();
+                if (48 <= Convert.ToChar(val) && Convert.ToChar(val) <= 57)
+                {
+                    board[row,col] = val;
+                }
+                else
+                {
+                    txt.text = "Please use only 1-9 and integers";
+                    //allNumbers = false;
+                }
             }
             else
             {
-                menu();
+                txt.text = "Please put spaces between the numbers";
+                //allNumbers = false;
             }
-        }
-    }
-
-    public void start_game()
-    {
-        //txt.text = "Welcome to Sudoku");
-        // txt.text = "To win the game you must fill each space with a number between 1-9");
-        // txt.text = "Each row, column, and 3x3 section may only contain one of each number 1-9");
-        //txt.text = "If a number does not follow the rules then it will...");
-        // txt.text = "If a number is between brackets that means it is a permanent space and you can not change it");
-        //txt.text = "Let the game begin");
-        //game = gameObject.AddComponent<Sudoku_Class>();
-        game = new Sudoku_Class();
-        bool win = false;
-        exit = false;
-        while (!win && !exit)
-        {
-            game.print_board();
-            txt.text = "\nEnter 'change' to change an entry, 'clear' to clear the board of all of the entries, 'end' to end the game and start a new one, 'save' to save the game, and 'exit' to exit the game";
-
-            user_choice();
-            win = game.win();
-        }
-        if (win)
-        {
-            txt.text = "Congradulations, you have won!\nPlay Again: 'Yes' or 'No'";
-            string input = Console.ReadLine();
-            if (input.Equals("Yes"))
-            {
-
-                start_game();
-            }
-            else
-            {
-
-                menu();
-            }
-        }
-    }
-
-    public void user_choice()
-    {
-        string input = Console.ReadLine();
-        if (input.Equals("change"))
-        {
-            txt.text = "Please enter 3 numbers row(0-8), column(0-8), value(0-9) with spaces between them or enter back to return to previous menu: ";
-            int row, col, val;
-            col = -1;
-            val = -1;
-            row = -1;
-            string[] split_input = input.Split(' ');
-
-            // Read 3 numbers
-            bool allNumbers = true;
-            try
-            {
-                //if (scanner.hasNextInt()) {
-                if (48 <= Convert.ToChar(split_input[0]) && Convert.ToChar(split_input[0]) <= 57)
-                {
-                    //string user_input = "";
-                    //user_input = scanner.nextLine();
-                    //Scanner temp = new Scanner(user_input);
-                    if (48 <= Convert.ToChar(split_input[0]) && Convert.ToChar(split_input[0]) <= 57)
-                    {
-                        row = Convert.ToInt32(split_input[0]);
-                        if (48 <= Convert.ToChar(split_input[1]) && Convert.ToChar(split_input[1]) <= 57)
-                        {
-                            col = Convert.ToInt32(split_input[1]);
-                            if (48 <= Convert.ToChar(split_input[2]) && Convert.ToChar(split_input[2]) <= 57)
-                            {
-                                val = Convert.ToInt32(split_input[2]);
-                            }
-                            else
-                            {
-                                txt.text = "Please put spaces between the numbers";
-                                allNumbers = false;
-                            }
-                        }
-                        else
-                        {
-                            txt.text = "Please put spaces between the numbers";
-                            allNumbers = false;
-                        }
-                    }
-                    else
-                    {
-                        txt.text = "Please put spaces between the numbers";
-                        allNumbers = false;
-                    }
-                    //temp.close();
-                }
-            }
-            catch (ArgumentException e)
-            {
-                if (!split_input[0].Equals("back"))
-                {
-                    txt.text = "Numbers, please!";
-                    //scanner.nextLine();
-                }
-                allNumbers = false;
-            }
-
-            // Apply change
-            if (allNumbers && !game.setSquare(row, col, val))
-            {
-                //if (game.setSquare(row, col, val)){
-                //  scanner.nextLine();
-                //}
-
-                txt.text = "Invalid! Please try again.";
-            }
-        }
-        else if (input.Equals("clear"))
-        {
-            game.clear_entries();
-        }
-        else if (input.Equals("save"))
-        {
-            game.save();
-        }
-        else if (input.Equals("exit"))
-        {
-            exit = true;
-        }
-        else if (input.Equals("end"))
-        {
-            game.clear_save();
-            start_game();
         }
         else
         {
-            txt.text = "Your response was not one of the availible choices";
-
+            txt.text = "Please use only 1-9 and integers";
         }
-    }
-
-
-
-    public void menu()
-    {
-        //txt.text = "Welcome, type 'play' and press enter to play a game";
-        Debug.Log("menu()");
-        //string input = Console.ReadLine();
-        //if (input.Equals("play")) {
-        //if (choice.Equals("play")) {
-        //start_game();
-        //Update();
-        // } else {
-        //    txt.text = "Your response was not one of the availible choices";
-        //    menu();
-        //}
-    }
-
-    public void OnSubmit()
-    {
-        choice = input.text;
     }
 }

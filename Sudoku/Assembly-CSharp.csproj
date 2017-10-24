@@ -53,6 +53,8 @@
   <ItemGroup>
      <Compile Include="Assets\Sudoku_Class.cs" />
      <Compile Include="Assets\Sudoku_Main.cs" />
+     <Compile Include="Assets\Sudoku_Validate.cs" />
+     <Compile Include="Assets\Sudoku_Win.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
