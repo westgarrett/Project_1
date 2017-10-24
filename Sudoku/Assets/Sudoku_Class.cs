@@ -18,11 +18,6 @@ public class Sudoku_Class : MonoBehaviour {
     public InputField third_int;
     public bool error = false;
 
-    void Awake()
-    {
-     
-    }
-
     // Use this for initialization
     void Start () {
         //Debug.Log("Class Start Called");
@@ -66,7 +61,6 @@ public class Sudoku_Class : MonoBehaviour {
     public void create_board()
     {
         board = new int[9, 9];
-        //Create HashSet 2D array with ints 1-9
         ArrayList[,] choices = new ArrayList[9, 9];
         for (int i = 0; i < choices.GetLength(0); i++)
         {
@@ -81,7 +75,6 @@ public class Sudoku_Class : MonoBehaviour {
         }
         board_filler(0, 0, choices, false);
         answer_board = new int[9, 9];
-        //answer_board = board.Clone();
         for (int i = 0; i < board.GetLength(0); i++)
         {
             for (int j = 0; j < board.GetLength(1); j++)
@@ -103,7 +96,6 @@ public class Sudoku_Class : MonoBehaviour {
                 }
             }
         }
-        //		return board;
     }
 
     private void board_filler(int row, int col, ArrayList[,] choices, bool back)
@@ -125,7 +117,6 @@ public class Sudoku_Class : MonoBehaviour {
                     row--;
                     col = 8;
                 }
-                //int pos = choices[row, col].IndexOf(board[row, col]);
                 choices[row, col].Remove(board[row, col]);
                 board_filler(row, col, choices, true);
                 back = false;
@@ -146,7 +137,6 @@ public class Sudoku_Class : MonoBehaviour {
                         if (!removed)
                         {
                             valid = false;
-                            //int pos = choices[row, col].IndexOf(board[row, col]);
                             choices[row, col].Remove(board[row, col]);
                             removed = true;
                         }
@@ -167,7 +157,6 @@ public class Sudoku_Class : MonoBehaviour {
                     row--;
                     col = 8;
                 }
-                //int pos = choices[row, col].IndexOf(board[row, col]);
                 choices[row, col].Remove(board[row, col]);
                 board_filler(row, col, choices, true);
                 back = false;
@@ -196,7 +185,6 @@ public class Sudoku_Class : MonoBehaviour {
     
     public void clear_save()
     {
-        //File f = new File("save_file.txt");
         string path = @"save_file.txt";
         StreamWriter write = new StreamWriter(path);
         write.Close();
@@ -204,7 +192,6 @@ public class Sudoku_Class : MonoBehaviour {
 
     public void save()
     {
-        //File f = new File("save_file.txt");
         string path = @"save_file.txt";
         StreamWriter write = new StreamWriter(path);
         for (int i = 0; i < board.GetLength(0); i++)
@@ -225,7 +212,7 @@ public class Sudoku_Class : MonoBehaviour {
         int column = 0;
         string line;
         line = reader.ReadLine();
-        Debug.Log(line);
+        //Debug.Log(line);
         bool stop = false;
         if (line == null)
         {
@@ -295,7 +282,6 @@ public class Sudoku_Class : MonoBehaviour {
     {
         //Calls method Convert_Board_To_string to make the board into a printable string
         string string_board = convert_board_to_string();
-        Console.WriteLine(string_board);
     }
 
     public string convert_board_to_string()
@@ -573,17 +559,6 @@ public class Sudoku_Class : MonoBehaviour {
         Debug.Log(row);
         Debug.Log(col);
         Debug.Log(val);
-        //string inp = Convert.ToString(input);
-        //string[] split_input = inp.Split(' ');
-
-        // Read 3 numbers
-        //bool allNumbers = true;
-        //try
-        //{
-
-        //string user_input = "";
-        //user_input = scanner.nextLine();
-        //Scanner temp = new Scanner(user_input);
         if (0 <= row && row <= 9)
         {
             if (0 <= col && col <= 9)
@@ -596,43 +571,17 @@ public class Sudoku_Class : MonoBehaviour {
                 else
                 {
                     error = true;
-                    //allNumbers = false;
                 }
             }
             else
             {
                 error = true;
-                //allNumbers = false;
             }
         }
         else
         {
             error = true;
-            //allNumbers = false;
         }
-
-        //temp.close();
-
-        //}
-        //catch (ArgumentException e)
-        //{
-        //   if (!split_input[0].Equals("back"))
-        //    {
-        //        txt.text = "Numbers, please!";
-        //        //scanner.nextLine();
-        //    }
-        //    allNumbers = false;
-        //}
-
-        // Apply change
-        //if (allNumbers && !game.setSquare(row, col, val))
-        //{
-        ////if (game.setSquare(row, col, val)){
-        ////  scanner.nextLine();
-        ////}
-
-        //txt.text = "Invalid! Please try again.";
-        //}
     }
 
     public void end() {

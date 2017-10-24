@@ -10,17 +10,11 @@ public class Sudoku_Win : MonoBehaviour {
         }
     }
     private Sudoku_Class b;
-    //public int[,] validBoard {
-    //    get {
-   //         return v.ans;
-    //    }
-    //}
     private Sudoku_Validate v;
     public bool return_value;
 
     void Awake(){
         b = gameObject.GetComponent<Sudoku_Class>();
-    //    v = gameObject.GetComponent<Sudoku_Validate>();
     }
 
     // Use this for initialization
@@ -45,9 +39,9 @@ public class Sudoku_Win : MonoBehaviour {
         }
         if (return_value)
         {
-            for (int i = 0; i < valid_array.Length; i++)
+            for (int i = 0; i < valid_array.GetLength(0); i++)
             {
-                for (int j = 0; j < valid_array.GetLength(i); j++)
+                for (int j = 0; j < valid_array.GetLength(1); j++)
                 {
                     if (valid_array[i, j] != 0)
                     {

@@ -5,9 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Sudoku_Main : MonoBehaviour {
-
-    //public Sudoku_Class game;
-    //private static Scanner scanner;
+    
     private static bool exit;
     public Text txt;
     public InputField input;
@@ -37,7 +35,7 @@ public class Sudoku_Main : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        Debug.Log("Main Start Called");
+        //Debug.Log("Main Start Called");
         first = true;
     }
 	
@@ -51,15 +49,7 @@ public class Sudoku_Main : MonoBehaviour {
         }
         if (win)
         {
-            txt.text = "Congradulations, you have won!\nPlay Again: 'Yes' or 'No'";
-            if (input.Equals("Yes"))
-            {
-                Start();
-            }
-            else
-            {
-                //menu();
-            }
+            txt.text = "Congradulations, you have won!To Play Again Press End";
         }
     }
     
@@ -69,65 +59,29 @@ public class Sudoku_Main : MonoBehaviour {
         row = Convert.ToInt32(first_int);
         col = Convert.ToInt32(second_int);
         val = Convert.ToInt32(third_int);
-        
-        //string inp = Convert.ToString(input);
-        //string[] split_input = inp.Split(' ');
-
-        // Read 3 numbers
-        //bool allNumbers = true;
-        //try
-        //{
-         
-                //string user_input = "";
-                //user_input = scanner.nextLine();
-                //Scanner temp = new Scanner(user_input);
-                if (48 <= Convert.ToChar(row) && Convert.ToChar(row) <= 57)
+        if (48 <= Convert.ToChar(row) && Convert.ToChar(row) <= 57)
+        {
+            if (48 <= Convert.ToChar(col) && Convert.ToChar(col) <= 57)
+            {
+                if (48 <= Convert.ToChar(val) && Convert.ToChar(val) <= 57)
                 {
-                    if (48 <= Convert.ToChar(col) && Convert.ToChar(col) <= 57)
-                    {
-                        if (48 <= Convert.ToChar(val) && Convert.ToChar(val) <= 57)
-                        {
-                            board[row,col] = val;
-                        }
-                        else
-                        {
-                            txt.text = "Please use only 1-9 and integers";
-                            //allNumbers = false;
-                        }
-                    }
-                    else
-                    {
-                        txt.text = "Please put spaces between the numbers";
-                        //allNumbers = false;
-                    }
+                    board[row,col] = val;
                 }
+                else
+                {
+                    txt.text = "Please use only 1-9 and integers";
+                    //allNumbers = false;
+                }
+            }
             else
             {
-                txt.text = "Please use only 1-9 and integers";
+                txt.text = "Please put spaces between the numbers";
                 //allNumbers = false;
             }
-
-            //temp.close();
-
-        //}
-        //catch (ArgumentException e)
-        //{
-         //   if (!split_input[0].Equals("back"))
-        //    {
-        //        txt.text = "Numbers, please!";
-        //        //scanner.nextLine();
-        //    }
-        //    allNumbers = false;
-        //}
-
-        // Apply change
-        //if (allNumbers && !game.setSquare(row, col, val))
-        //{
-        ////if (game.setSquare(row, col, val)){
-        ////  scanner.nextLine();
-        ////}
-
-        //txt.text = "Invalid! Please try again.";
-        //}
+        }
+        else
+        {
+            txt.text = "Please use only 1-9 and integers";
+        }
     }
 }
