@@ -2630,7 +2630,7 @@ GameObject:
   - component: {fileID: 223181228}
   - component: {fileID: 223181227}
   m_Layer: 5
-  m_Name: InputField (1)
+  m_Name: zero one
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11138,7 +11138,7 @@ GameObject:
   - component: {fileID: 969305170}
   - component: {fileID: 969305169}
   m_Layer: 5
-  m_Name: InputField
+  m_Name: zero zero
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19781,7 +19781,7 @@ RectTransform:
   m_GameObject: {fileID: 1763896989}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 90}
-  m_LocalScale: {x: 1.2821482, y: 1.2821482, z: 1.2821482}
+  m_LocalScale: {x: 1.2272602, y: 1.2272602, z: 1.2272602}
   m_Children:
   - {fileID: 969305168}
   - {fileID: 223181226}
@@ -20032,7 +20032,7 @@ GameObject:
   - component: {fileID: 1809702505}
   - component: {fileID: 1809702504}
   m_Layer: 5
-  m_Name: InputField (2)
+  m_Name: zero two
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
