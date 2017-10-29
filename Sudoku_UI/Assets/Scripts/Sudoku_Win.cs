@@ -11,9 +11,12 @@ public class Sudoku_Win : MonoBehaviour
         {
             return b.board;
         }
+		set
+		{
+			b.board = value;
+		}
     }
     private Sudoku_Class b;
-    private Sudoku_Validate v;
     public bool return_value;
 
     void Awake()
@@ -24,7 +27,9 @@ public class Sudoku_Win : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+		test_valid_rowcol ();
+		test_valid_33 ();
+		test_valid_all ();
     }
 
     // Update is called once per frame
@@ -257,5 +262,116 @@ public class Sudoku_Win : MonoBehaviour
         }
         return return_array;
     }
-
+	public void test_valid_all()
+	{
+		int[,] expected = {
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+		};
+		int[,] bak_board = board;
+		int[,] test_board = {
+			{5,3,4,6,7,8,9,1,2},
+			{6,7,2,1,9,5,3,4,8},
+			{1,9,8,3,4,2,5,6,7},
+			{8,5,9,7,6,1,4,2,3},
+			{4,2,6,8,5,3,7,9,1},
+			{7,1,3,9,2,4,8,5,6},
+			{9,6,1,5,3,7,2,8,4},
+			{2,8,7,4,1,9,6,3,5},
+			{3,4,5,2,8,6,1,7,9}
+		};
+		board = test_board;
+		int[,] res = Validate ();
+		if (array2dComp(expected, res)) {
+			Debug.Log ("Test ok");
+		} else {
+			Debug.Log ("Test FAIL");
+		}
+		board = bak_board;
+	}
+	public void test_valid_rowcol()
+	{
+		int[,] expected = {
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+		};
+		int[,] bak_board = board;
+		int[,] test_board = {
+			{5,3,4,6,7,8,9,1,2},
+			{6,7,2,1,9,5,3,4,8},
+			{1,9,8,3,4,2,5,6,7},
+			{8,5,9,7,6,1,4,2,3},
+			{4,2,6,8,5,3,7,9,1},
+			{7,1,3,9,2,4,8,5,6},
+			{9,6,1,5,3,7,2,8,4},
+			{2,8,7,4,1,9,6,3,5},
+			{3,4,5,2,8,6,1,7,9}
+		};
+		board = test_board;
+		int[,] res = ValidAllRowsAndCols ();
+		if (array2dComp(expected, res)) {
+			Debug.Log ("Test ok");
+		} else {
+			Debug.Log ("Test FAIL");
+		}
+		board = bak_board;
+	}
+	public void test_valid_33()
+	{
+		int[,] expected = {
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+		};
+		int[,] bak_board = board;
+		int[,] test_board = {
+			{5,3,4,6,7,8,9,1,2},
+			{6,7,2,1,9,5,3,4,8},
+			{1,9,8,3,4,2,5,6,7},
+			{8,5,9,7,6,1,4,2,3},
+			{4,2,6,8,5,3,7,9,1},
+			{7,1,3,9,2,4,8,5,6},
+			{9,6,1,5,3,7,2,8,4},
+			{2,8,7,4,1,9,6,3,5},
+			{3,4,5,2,8,6,1,7,9}
+		};
+		board = test_board;
+		int[,] res = validate_3x3_area ();
+		if (array2dComp(expected, res)) {
+			Debug.Log ("Test ok");
+		} else {
+			Debug.Log ("Test FAIL");
+		}
+		board = bak_board;
+	}
+	public bool array2dComp(int[,] a, int[,] b) {
+		for (int i = 0; i < 9; i++) {
+			for (int j = 0; j < 9; j++) {
+				if (a [i,j] != b [i,j]) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
 }
